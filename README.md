@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+# Easel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A TypeScript application for building and generating UI components for your LMS.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Easel is a specialised tool designed for Learning Management System (LMS) users who need to quickly generate ready-to-use HTML components. Whether you're building course content, interactive lessons, or custom page elements, Easel streamlines the component creation process by generating clean, LMS-compatible HTML. Easel delivers production-ready components you can immediately deploy in your LMS environment.
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **LMS-Ready Output**: Components designed to work seamlessly in LMS environments
+- **Inline CSS Styling**: Components come with integrated inline styles for maximum compatibility
+- **TypeScript**: Fully typed for reliability and developer experience
+- **Tailwind UI**: Application interface styled with Tailwind CSS
 
-## Expanding the ESLint configuration
+## Current Capabilities
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Generate HTML components with inline CSS
+- Export ready-to-use component code
+- Clean, semantic HTML output optimized for LMS platforms
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Roadmap
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Planned Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **CSS Class Generation**: Produce HTML with CSS classes instead of inline styles
+- **Enhanced Component Builder**: Expanded component building capabilities with more customization options
+
+## Tech Stack
+
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Deployment**: Vercel
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## License
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Copyright © 2025 Mitchell Klein
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+See the [LICENSE](LICENSE) file for full details.
