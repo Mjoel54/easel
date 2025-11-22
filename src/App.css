@@ -1,0 +1,14 @@
+.banner {
+  background: #8a19cc;
+  padding: 10px 20px;
+  margin-bottom: 1rem;
+  border-radius: 0 15px 0 5px;
+}
+
+.banner h2 {
+  color: #ffffff;
+  margin: 0.5rem 0;
+  font-size: 1.5em; /* Add size */
+  font-weight: bold; /* Add weight */
+  line-height: 1.2; /* Add line height */
+}
