@@ -84,14 +84,14 @@ export default function Layout({ children }: LayoutProps) {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
-                      <button
+                      {/* <button
                         type="button"
                         className="relative rounded-full p-1 text-gray-400 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500"
                       >
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">View notifications</span>
                         <BellIcon aria-hidden="true" className="size-6" />
-                      </button>
+                      </button> */}
 
                       {/* Profile dropdown */}
                       {/* <Menu as="div" className="relative ml-3">
@@ -165,7 +165,7 @@ export default function Layout({ children }: LayoutProps) {
                   );
                 })}
               </div>
-              <div className="border-t border-white/10 pt-4 pb-3">
+              {/* <div className="border-t border-white/10 pt-4 pb-3">
                 <div className="flex items-center px-5">
                   <div className="shrink-0">
                     <img
@@ -203,7 +203,7 @@ export default function Layout({ children }: LayoutProps) {
                     </DisclosureButton>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </DisclosurePanel>
           </Disclosure>
           <header className="py-10">
