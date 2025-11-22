@@ -1,7 +1,9 @@
+import LibraryList from "../components/LibraryList.jsx";
+
 export default function Library() {
   return (
     <>
-      <h1>Component Library</h1>
+      <LibraryList />
     </>
   );
 }
