@@ -5,29 +5,20 @@ export default function LibraryList() {
       name: "Banner 1",
       preview: `<div class="banner"><h2>Heading</h2></div>`,
     },
-    {
-      id: 2,
-      name: "Tabbed Content",
-      preview: "<div>Tabs preview HTML here</div>",
-    },
-    {
-      id: 3,
-      name: "Callout Box",
-      preview: "<div>Callout preview HTML here</div>",
-    },
+    // {
+    //   id: 2,
+    //   name: "Tabbed Content",
+    //   preview: "<div>Tabs preview HTML here</div>",
+    // },
+    // {
+    //   id: 3,
+    //   name: "Callout Box",
+    //   preview: "<div>Callout preview HTML here</div>",
+    // },
   ];
 
   return (
     <div>
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-          Canvas Components
-        </h2>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
-          Ready-to-use components for your Canvas LMS pages
-        </p>
-      </div>
-
       <div className="space-y-6">
         {components.map((component) => (
           <div
