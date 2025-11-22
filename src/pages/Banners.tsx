@@ -1,5 +1,5 @@
 import { PageHeader } from "../components/index.js";
-import LibraryList from "../components/LibraryList.jsx";
+import ComponentList from "../components/ComponentList.js";
 
 export default function Banners() {
   return (
@@ -8,7 +8,7 @@ export default function Banners() {
         title="Banner Components"
         description="Ready-to-use components for your Canvas LMS pages"
       />
-      <LibraryList />
+      <ComponentList />
     </>
   );
 }
