@@ -84,14 +84,14 @@ export default function Layout({ children }: LayoutProps) {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
-                      {/* <button
+                      <button
                         type="button"
                         className="relative rounded-full p-1 text-gray-400 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500"
                       >
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">View notifications</span>
                         <BellIcon aria-hidden="true" className="size-6" />
-                      </button> */}
+                      </button>
 
                       {/* Profile dropdown */}
                       {/* <Menu as="div" className="relative ml-3">
@@ -144,22 +144,26 @@ export default function Layout({ children }: LayoutProps) {
 
             <DisclosurePanel className="border-b border-white/10 md:hidden">
               <div className="space-y-1 px-2 py-3 sm:px-3">
-                {navigation.map((item) => (
-                  <DisclosureButton
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    aria-current={item.current ? "page" : undefined}
-                    className={classNames(
-                      item.current
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-white/5 hover:text-white",
-                      "block rounded-md px-3 py-2 text-base font-medium"
-                    )}
-                  >
-                    {item.name}
-                  </DisclosureButton>
-                ))}
+                {navigation.map((item) => {
+                  const isActive = location.pathname === item.href;
+
+                  return (
+                    <DisclosureButton
+                      key={item.name}
+                      as={Link}
+                      to={item.href}
+                      aria-current={isActive ? "page" : undefined}
+                      className={classNames(
+                        isActive
+                          ? "bg-gray-900 text-white dark:bg-gray-950/50"
+                          : "text-gray-300 hover:bg-white/5 hover:text-white",
+                        "block rounded-md px-3 py-2 text-base font-medium"
+                      )}
+                    >
+                      {item.name}
+                    </DisclosureButton>
+                  );
+                })}
               </div>
               <div className="border-t border-white/10 pt-4 pb-3">
                 <div className="flex items-center px-5">
@@ -191,8 +195,8 @@ export default function Layout({ children }: LayoutProps) {
                   {userNavigation.map((item) => (
                     <DisclosureButton
                       key={item.name}
-                      as="a"
-                      href={item.href}
+                      as={Link}
+                      to={item.href}
                       className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-white/5 hover:text-white"
                     >
                       {item.name}
