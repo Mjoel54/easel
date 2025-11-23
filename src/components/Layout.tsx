@@ -3,7 +3,11 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  PaintBrushIcon,
+} from "@heroicons/react/24/outline";
 import { type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -14,7 +18,7 @@ import { Link, useLocation } from "react-router-dom";
 //     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 // };
 const navigation = [
-  { name: "Dashboard", href: "/", current: true },
+  { name: "About", href: "/", current: true },
   { name: "Banners", href: "/banners", current: false },
 ];
 // const userNavigation = [
@@ -52,10 +56,9 @@ export default function Layout({ children }: LayoutProps) {
                 <div className="flex h-16 items-center justify-between px-4 sm:px-0">
                   <div className="flex items-center">
                     <div className="shrink-0">
-                      <img
-                        alt="Your Company"
-                        src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                        className="size-8"
+                      <PaintBrushIcon
+                        className="size-8 text-white"
+                        aria-label="Easel logo"
                       />
                     </div>
                     <div className="hidden md:block">
@@ -209,10 +212,16 @@ export default function Layout({ children }: LayoutProps) {
           <header className="py-10">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <h1 className="text-3xl font-bold tracking-tight text-white">
-                {/* {navigation.find((item) => item.href === location.pathname)
-                  ?.name || "Dashboard"} */}
                 Easel
               </h1>
+              <a
+                href="https://www.linkedin.com/in/mitchell-k-598591247/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-gray-300 hover:text-white transition-colors mt-1 inline-block"
+              >
+                by Mitchell Klein
+              </a>
             </div>
           </header>
         </div>

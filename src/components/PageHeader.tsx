@@ -11,7 +11,9 @@ export default function PageHeader({ title, description }: PageHeaderProps) {
         {title}
       </h2>
       {description && (
-        <p className="mt-2 text-gray-600 dark:text-gray-400">{description}</p>
+        <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
+          {description}
+        </p>
       )}
     </div>
   );

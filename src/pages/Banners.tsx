@@ -6,7 +6,6 @@ export default function Banners() {
     <>
       <PageHeader
         title="Banner Components"
-        description="Ready-to-use components for your Canvas LMS pages"
       />
       <ComponentList />
     </>
