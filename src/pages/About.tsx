@@ -5,7 +5,7 @@ export default function About() {
     <section className="max-w-4xl mx-auto my-8 px-4">
       <PageHeader
         title="About"
-        description="Your creative studio for crafting UI components"
+        description="Your creative studio for crafting LMS ready UI components"
       />
 
       <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">

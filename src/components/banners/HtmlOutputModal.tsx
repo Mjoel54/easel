@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import {
+  ClipboardDocumentIcon,
+  ClipboardDocumentCheckIcon,
+} from "@heroicons/react/24/outline";
 
 interface HTMLOutputModalProps {
   isOpen: boolean;
@@ -84,9 +88,13 @@ export const HTMLOutputModal: React.FC<HTMLOutputModalProps> = ({
                 </pre>
                 <button
                   onClick={handleCopy}
-                  className="absolute top-2 right-2 px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors cursor-pointer"
+                  className="absolute top-2 right-2 p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors cursor-pointer"
                 >
-                  {copied ? "Copied!" : "Copy"}
+                  {copied ? (
+                    <ClipboardDocumentCheckIcon className="w-5 h-5" />
+                  ) : (
+                    <ClipboardDocumentIcon className="w-5 h-5" />
+                  )}
                 </button>
               </div>
             </div>
