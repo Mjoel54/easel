@@ -12,9 +12,10 @@ export const BorderBannerForm: React.FC<BorderBannerBannerFormProps> = ({
 }) => {
   const [text, setText] = useState("");
   const [accentColor, setAccentColor] = useState("#8a19cc");
+  const [thickness, setThickness] = useState(10);
 
   const generateBannerHTML = (): string => {
-    return `<div style="background: #f5f7fa; padding: 24px 32px; margin-bottom: 1rem; border-radius: 8px; border-left: 6px solid ${accentColor};">
+    return `<div style="background: #f5f7fa; padding: 24px 32px; margin-bottom: 1rem; border-radius: 8px; border-left: ${thickness}px solid ${accentColor};">
   <h2 style="margin: 0; color: #1e293b; font-size: 26px;"><strong>${text}</strong></h2>
 </div>`;
   };
@@ -51,6 +52,30 @@ export const BorderBannerForm: React.FC<BorderBannerBannerFormProps> = ({
         onChange={setAccentColor}
         helperText="Choose a brand colour for the left accent bar"
       />
+
+      <div>
+        <label
+          htmlFor="thickness"
+          className="block text-sm font-medium text-gray-900 dark:text-white mb-2"
+        >
+          Accent Edge Thickness: {thickness}px
+        </label>
+        <div className="max-w-md">
+          <input
+            id="thickness"
+            type="range"
+            min="3"
+            max="15"
+            value={thickness}
+            onChange={(e) => setThickness(Number(e.target.value))}
+            className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600"
+          />
+          <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
+            <span>3px (Subtle)</span>
+            <span>15px (Bold)</span>
+          </div>
+        </div>
+      </div>
 
       {text && (
         <div>
