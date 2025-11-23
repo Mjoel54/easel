@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { ColorSelector } from "../forms/ColorSelector.jsx";
 
-interface ModernProfessionalBannerFormProps {
+interface BorderBannerBannerFormProps {
   onCancel: () => void;
   onGenerate: (html: string) => void;
 }
 
-export const ModernBannerForm: React.FC<ModernProfessionalBannerFormProps> = ({
+export const BorderBannerForm: React.FC<BorderBannerBannerFormProps> = ({
   onCancel,
   onGenerate,
 }) => {
@@ -14,7 +15,7 @@ export const ModernBannerForm: React.FC<ModernProfessionalBannerFormProps> = ({
 
   const generateBannerHTML = (): string => {
     return `<div style="background: #f5f7fa; padding: 24px 32px; margin-bottom: 1rem; border-radius: 8px; border-left: 6px solid ${accentColor};">
-  <h2 style="margin: 0; font-weight: 600; color: #1e293b; font-size: 26px; line-height: 1.3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;">${text}</h2>
+  <h2 style="margin: 0; color: #1e293b; font-size: 26px;"><strong>${text}</strong></h2>
 </div>`;
   };
 
@@ -22,11 +23,6 @@ export const ModernBannerForm: React.FC<ModernProfessionalBannerFormProps> = ({
     e.preventDefault();
     const html = generateBannerHTML();
     onGenerate(html);
-  };
-
-  const handleColorChange = (value: string) => {
-    const cleanValue = value.startsWith("#") ? value.slice(1) : value;
-    setAccentColor(`#${cleanValue}`);
   };
 
   return (
@@ -48,39 +44,13 @@ export const ModernBannerForm: React.FC<ModernProfessionalBannerFormProps> = ({
         />
       </div>
 
-      <div>
-        <label
-          htmlFor="accent-color"
-          className="block text-sm font-medium text-gray-900 dark:text-white mb-2"
-        >
-          Accent Color
-        </label>
-        <div className="flex gap-3">
-          <input
-            id="accent-color"
-            type="color"
-            value={accentColor}
-            onChange={(e) => setAccentColor(e.target.value)}
-            className="h-11 w-20 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer"
-          />
-          <div className="flex-1 flex items-center border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 bg-white dark:bg-gray-700">
-            <span className="pl-4 pr-1 text-gray-600 dark:text-gray-400 select-none font-mono">
-              #
-            </span>
-            <input
-              type="text"
-              value={accentColor.slice(1)}
-              onChange={(e) => handleColorChange(e.target.value)}
-              placeholder="2563eb"
-              maxLength={6}
-              className="flex-1 px-1 py-2 bg-transparent focus:outline-none dark:text-white font-mono"
-            />
-          </div>
-        </div>
-        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-          Choose a brand color for the left accent bar
-        </p>
-      </div>
+      <ColorSelector
+        id="accent-color"
+        label="Accent Colour"
+        value={accentColor}
+        onChange={setAccentColor}
+        helperText="Choose a brand colour for the left accent bar"
+      />
 
       {text && (
         <div>
