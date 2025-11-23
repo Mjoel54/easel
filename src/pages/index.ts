@@ -1,4 +1,4 @@
-import Dashboard from "./Dashboard.jsx";
+import About from "./About.js";
 import Banners from "./Banners.js";
 
-export { Dashboard, Banners };
+export { About, Banners };

@@ -43,7 +43,6 @@ export const ModernBannerForm: React.FC<ModernProfessionalBannerFormProps> = ({
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Enter banner title"
           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
           required
         />
