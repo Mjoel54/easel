@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { CreateBannerForm } from "./banners/CreateBannerForm.js";
+import { SimpleBannerForm } from "./banners/SimpleBannerForm.jsx";
 import GradientBannerForm from "./banners/GradientBannerForm.js";
-import { ModernBannerForm } from "./banners/ModernBannerForm.js";
+import { BorderBannerForm } from "./banners/BorderBannerForm.js";
 import { HTMLOutputModal } from "./banners/HtmlOutputModal.js";
 
 export default function ComponentList() {
@@ -13,8 +13,8 @@ export default function ComponentList() {
     {
       id: 1,
       name: "Simple",
-      formComponent: CreateBannerForm,
-      preview: `<div style="background-color: #8a19cc; padding: 10px 20px; margin-bottom: 1rem; border-radius: 0 15px 0 5px;"><h2 style="margin: 0.5rem 0; font-size: 28px; font-weight: 700; color: #ffffff;">Heading</h2></div>`,
+      formComponent: SimpleBannerForm,
+      preview: `<div style="background-color: #8a19cc; padding: 10px 20px; margin-bottom: 1rem; border-radius: 0 15px 0 5px;"><h2 style="margin: 0.5rem 0; font-size: 28px; color: #ffffff;"><strong>Heading</strong></h2></div>`,
     },
     {
       id: 2,
@@ -24,15 +24,15 @@ export default function ComponentList() {
   <div style="position: absolute; top: -50%; right: -10%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
   <div style="position: absolute; bottom: -30%; left: -5%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
   <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.03) 50%, transparent 70%); pointer-events: none;"></div>
-  <h2 style="position: relative; margin: 0; font-weight: 700; color: #ffffff; font-size: 28px; letter-spacing: -0.5px; text-shadow: 0 2px 20px rgba(0,0,0,0.3), 0 0 40px rgba(255,255,255,0.1); line-height: 1.3;">Heading</h2>
+  <h2 style="position: relative; margin: 0; color: #ffffff; font-size: 28px; letter-spacing: -0.5px; text-shadow: 0 2px 20px rgba(0,0,0,0.3), 0 0 40px rgba(255,255,255,0.1); line-height: 1.3;"><strong>Heading</strong></h2>
 </div>`,
     },
     {
       id: 3,
       name: "Border",
-      formComponent: ModernBannerForm,
+      formComponent: BorderBannerForm,
       preview: `<div style="background: #f5f7fa; padding: 24px 32px; margin-bottom: 1rem; border-radius: 8px; border-left: 10px solid #8a19cc;">
-  <h2 style="margin: 0; font-weight: 700; color: #1e293b; font-size: 26px; line-height: 1.3;">Heading</h2>
+  <h2 style="margin: 0; color: #1e293b; font-size: 26px; line-height: 1.3;"><strong>Heading</strong></h2>
 </div>`,
     },
   ];

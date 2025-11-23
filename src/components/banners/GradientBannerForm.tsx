@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ColorSelector } from "../forms/ColorSelector.jsx";
 
 interface GradientBannerFormProps {
   onCancel: () => void;
@@ -26,7 +27,7 @@ export default function GradientBannerForm({
   <div style="position: absolute; top: -50%; right: -10%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
   <div style="position: absolute; bottom: -30%; left: -5%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
   <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.03) 50%, transparent 70%); pointer-events: none;"></div>
-  <h2 style="position: relative; margin: 0; font-weight: 700; color: #ffffff; font-size: 28px; letter-spacing: -0.5px; text-shadow: 0 2px 20px rgba(0,0,0,0.3), 0 0 40px rgba(255,255,255,0.1); line-height: 1.3;">${text}</h2>
+  <h2 style="position: relative; margin: 0; color: #ffffff; font-size: 28px; letter-spacing: -0.5px; text-shadow: 0 2px 20px rgba(0,0,0,0.3), 0 0 40px rgba(255,255,255,0.1);"><strong>${text}</strong></h2>
 </div>`;
   };
 
@@ -34,11 +35,6 @@ export default function GradientBannerForm({
     e.preventDefault();
     const html = generateBannerHTML();
     onGenerate(html);
-  };
-
-  const handleColorChange = (value: string) => {
-    const cleanValue = value.startsWith("#") ? value.slice(1) : value;
-    setBackgroundColor(`#${cleanValue}`);
   };
 
   return (
@@ -60,39 +56,13 @@ export default function GradientBannerForm({
         />
       </div>
 
-      <div>
-        <label
-          htmlFor="bg-color"
-          className="block text-sm font-medium text-gray-900 dark:text-white mb-2"
-        >
-          Gradient Start Color
-        </label>
-        <div className="flex gap-3">
-          <input
-            id="bg-color"
-            type="color"
-            value={backgroundColor}
-            onChange={(e) => setBackgroundColor(e.target.value)}
-            className="h-11 w-20 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer"
-          />
-          <div className="flex-1 flex items-center border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 bg-white dark:bg-gray-700">
-            <span className="pl-4 pr-1 text-gray-600 dark:text-gray-400 select-none font-mono">
-              #
-            </span>
-            <input
-              type="text"
-              value={backgroundColor.slice(1)}
-              onChange={(e) => handleColorChange(e.target.value)}
-              placeholder="8a19cc"
-              maxLength={6}
-              className="flex-1 px-1 py-2 bg-transparent focus:outline-none dark:text-white font-mono"
-            />
-          </div>
-        </div>
-        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-          The gradient will automatically transition to a darker shade
-        </p>
-      </div>
+      <ColorSelector
+        id="bg-color"
+        label="Gradient Start Colour"
+        value={backgroundColor}
+        onChange={setBackgroundColor}
+        helperText="The gradient will automatically transition to a darker shade"
+      />
 
       {text && (
         <div>
