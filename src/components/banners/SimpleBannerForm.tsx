@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ColorSelector } from "../forms/ColorSelector.jsx";
+import { ColorSelector, TitleSelector } from "../forms/index.js";
 
 interface CreateBannerFormProps {
   onCancel: () => void;
@@ -25,22 +25,12 @@ export const SimpleBannerForm: React.FC<CreateBannerFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <label
-          htmlFor="banner-text"
-          className="block text-sm font-medium text-gray-900 dark:text-white mb-2"
-        >
-          Banner Title
-        </label>
-        <input
-          id="banner-text"
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-          required
-        />
-      </div>
+      <TitleSelector
+        id="banner-text"
+        label="Title"
+        value={text}
+        onChange={setText}
+      />
 
       <ColorSelector
         id="bg-color"

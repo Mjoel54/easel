@@ -1,5 +1,3 @@
-import React from "react";
-
 interface ColorSelectorProps {
   id: string;
   label: string;
@@ -8,13 +6,13 @@ interface ColorSelectorProps {
   helperText?: string;
 }
 
-export const ColorSelector: React.FC<ColorSelectorProps> = ({
+export default function ColorSelector({
   id,
   label,
   value,
   onChange,
   helperText,
-}) => {
+}: ColorSelectorProps) {
   const handleTextChange = (textValue: string) => {
     const cleanValue = textValue.startsWith("#")
       ? textValue.slice(1)
@@ -59,4 +57,4 @@ export const ColorSelector: React.FC<ColorSelectorProps> = ({
       )}
     </div>
   );
-};
+}
