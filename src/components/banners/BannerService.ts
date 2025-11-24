@@ -14,7 +14,7 @@ export class BannerService {
     id: 2,
     name: "Gradient",
     formComponent: GradientBannerForm,
-    preview: `<div style="position: relative; background: linear-gradient(135deg, #8a19cc 0%, #5a0f8c 100%); padding: 24px 32px; margin-bottom: 1rem; border-radius: 16px; overflow: hidden;">
+    preview: `<div style="position: relative; background: linear-gradient(135deg, #8a19cc 0%, #a837ea 100%); padding: 24px 32px; margin-bottom: 1rem; border-radius: 16px; overflow: hidden;">
   <h2 style="position: relative; margin: 0; color: #ffffff; font-size: 28px;"><strong>Heading</strong></h2>
 </div>`,
   };

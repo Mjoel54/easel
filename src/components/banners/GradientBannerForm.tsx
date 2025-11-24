@@ -12,6 +12,9 @@ export default function GradientBannerForm({
 }: GradientBannerFormProps) {
   const [text, setText] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("#8a19cc");
+  const [gradientDirection, setGradientDirection] = useState<
+    "lighter" | "darker"
+  >("lighter");
 
   const adjustColor = (hex: string, percent: number): string => {
     const num = parseInt(hex.replace("#", ""), 16);
@@ -22,8 +25,9 @@ export default function GradientBannerForm({
   };
 
   const generateBannerHTML = (): string => {
-    const darkerColor = adjustColor(backgroundColor, -30);
-    return `<div style="position: relative; background: linear-gradient(135deg, ${backgroundColor} 0%, ${darkerColor} 100%); padding: 24px 32px; margin-bottom: 1rem; border-radius: 16px; overflow: hidden;">
+    const adjustment = gradientDirection === "darker" ? -30 : 30;
+    const endColor = adjustColor(backgroundColor, adjustment);
+    return `<div style="position: relative; background: linear-gradient(135deg, ${backgroundColor} 0%, ${endColor} 100%); padding: 24px 32px; margin-bottom: 1rem; border-radius: 16px; overflow: hidden;">
   <h2 style="position: relative; margin: 0; color: #ffffff; font-size: 28px;"><strong>${text}</strong></h2>
 </div>`;
   };
@@ -48,8 +52,45 @@ export default function GradientBannerForm({
         label="Gradient Start Colour"
         value={backgroundColor}
         onChange={setBackgroundColor}
-        helperText="The gradient will automatically transition to a darker shade"
       />
+
+      <div>
+        <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+          Gradient Direction
+        </label>
+        <div className="flex gap-4">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="gradientDirection"
+              value="lighter"
+              checked={gradientDirection === "lighter"}
+              onChange={(e) =>
+                setGradientDirection(e.target.value as "lighter" | "darker")
+              }
+              className="w-4 h-4 text-blue-600"
+            />
+            <span className="text-sm text-gray-700 dark:text-gray-300">
+              Lighter
+            </span>
+          </label>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="gradientDirection"
+              value="darker"
+              checked={gradientDirection === "darker"}
+              onChange={(e) =>
+                setGradientDirection(e.target.value as "lighter" | "darker")
+              }
+              className="w-4 h-4 text-blue-600"
+            />
+            <span className="text-sm text-gray-700 dark:text-gray-300">
+              Darker
+            </span>
+          </label>
+        </div>
+      </div>
 
       {text && (
         <div>
