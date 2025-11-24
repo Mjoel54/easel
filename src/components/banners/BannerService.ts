@@ -14,11 +14,8 @@ export class BannerService {
     id: 2,
     name: "Gradient",
     formComponent: GradientBannerForm,
-    preview: `<div style="position: relative; background: linear-gradient(135deg, #8a19cc 0%, #5a0f8c 100%); padding: 24px 32px; margin-bottom: 1rem; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.1) inset;">
-  <div style="position: absolute; top: -50%; right: -10%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
-  <div style="position: absolute; bottom: -30%; left: -5%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
-  <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.03) 50%, transparent 70%); pointer-events: none;"></div>
-  <h2 style="position: relative; margin: 0; color: #ffffff; font-size: 28px; letter-spacing: -0.5px; text-shadow: 0 2px 20px rgba(0,0,0,0.3), 0 0 40px rgba(255,255,255,0.1); line-height: 1.3;"><strong>Heading</strong></h2>
+    preview: `<div style="position: relative; background: linear-gradient(135deg, #8a19cc 0%, #a837ea 100%); padding: 24px 32px; margin-bottom: 1rem; border-radius: 16px; overflow: hidden;">
+  <h2 style="position: relative; margin: 0; color: #ffffff; font-size: 28px;"><strong>Heading</strong></h2>
 </div>`,
   };
 
