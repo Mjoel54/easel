@@ -70,7 +70,7 @@ export default function ColorSelector({
           )}
         </div>
 
-        <div className="flex-1 flex items-center h-11 border-brand border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 dark:focus-within:ring-blue-400 dark:focus-within:border-blue-400 bg-white dark:bg-gray-700 transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500">
+        <div className="flex-1 flex items-center h-11 border-brand border-gray-300 hover:border-hover dark:border-gray-600 dark:hover:border-hover-dark rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 dark:focus-within:ring-blue-400 dark:focus-within:border-blue-400 bg-white dark:bg-gray-700 transition-all duration-200">
           <span className="pl-4 pr-1 text-gray-600 dark:text-gray-400 select-none font-mono text-sm">
             #
           </span>
