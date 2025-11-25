@@ -133,13 +133,16 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
   };
 
   const renderNode = (node: HtmlNode, depth: number = 0): React.JSX.Element => {
-    const indent = depth * 24;
+    const indent = depth * 8;
 
     if (node.isTextNode) {
+      const text = editedTexts[node.id] || "";
+      const rows = Math.max(1, Math.ceil(text.length / 80));
+
       return (
         <div
           key={node.id}
-          className="flex items-start gap-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+          className="flex items-start gap-4 py-2 pr-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
           style={{ paddingLeft: `${indent}px` }}
         >
           <div className="flex-shrink-0 w-32 pt-2">
@@ -148,11 +151,11 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
             </span>
           </div>
           <div className="flex-1 min-w-0">
-            <input
-              type="text"
-              value={editedTexts[node.id] || ""}
+            <textarea
+              value={text}
               onChange={(e) => updateText(node.id, e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              rows={rows}
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
             />
           </div>
         </div>
@@ -162,22 +165,17 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
     return (
       <div key={node.id}>
         <div
-          className="py-2 border-l-2 border-transparent hover:border-blue-500 transition-colors"
+          className="py-2 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
           style={{ paddingLeft: `${indent}px` }}
         >
           <span className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
             &lt;{node.tagName}&gt;
           </span>
-          {Object.keys(node.attributes).length > 0 && (
-            <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">
-              {Object.keys(node.attributes).length} attribute(s)
-            </span>
-          )}
         </div>
         {node.children.map((child) => renderNode(child, depth + 1))}
         {node.children.length > 0 && (
           <div
-            className="py-1"
+            className="py-1 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
             style={{ paddingLeft: `${indent}px` }}
           >
             <span className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
@@ -215,13 +213,11 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
               value={htmlInput}
               onChange={(e) => setHtmlInput(e.target.value)}
               placeholder="Paste your HTML content here..."
-              rows={12}
+              rows={24}
               className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
             />
           </div>
-          <SubmitButton disabled={!htmlInput.trim()}>
-            Parse HTML
-          </SubmitButton>
+          <SubmitButton disabled={!htmlInput.trim()}>Parse HTML</SubmitButton>
         </form>
       ) : (
         <div className="space-y-4">
@@ -248,7 +244,7 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
                 <div className="flex-1">Editable Text Content</div>
               </div>
             </div>
-            <div className="p-4 max-h-96 overflow-y-auto">
+            <div className="p-4 max-h-[600px] overflow-y-auto">
               {parsedNodes.map((node) => renderNode(node))}
             </div>
           </div>

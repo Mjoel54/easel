@@ -16,10 +16,10 @@ export default function Editor() {
     <>
       <PageHeader
         title="HTML Editor"
-        description="Your safe space to edit HTML text without accidentally breaking styling - paste in your content, make changes with confidence, and copy it right back where it belongs, in your LMS."
+        description="Fearlessly edit HTML text without accidentally breaking styling - paste in existing HTML, make changes with confidence, and copy it right back where it belongs, in your LMS."
       />
 
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8">
         <HtmlEditorForm onGenerate={handleGenerate} />
       </div>
 
