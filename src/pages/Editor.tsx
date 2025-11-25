@@ -28,6 +28,7 @@ export default function Editor() {
         onClose={() => setIsModalOpen(false)}
         html={generatedHtml}
         title="Edited HTML"
+        showPreview={false}
       />
     </>
   );
