@@ -1,4 +1,5 @@
-import About from "./About.js";
-import Banners from "./Banners.js";
+import About from "./About";
+import Banners from "./Banners";
+import Editor from "./Editor";
 
-export { About, Banners };
+export { About, Banners, Editor };
