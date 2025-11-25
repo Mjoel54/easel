@@ -28,6 +28,15 @@ export const BorderBannerForm: React.FC<BorderBannerBannerFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {text && (
+        <div>
+          <p className="text-sm font-medium text-gray-900 dark:text-white mb-2">
+            Preview
+          </p>
+          <div dangerouslySetInnerHTML={{ __html: generateBannerHTML() }} />
+        </div>
+      )}
+
       <TitleSelector
         id="banner-text"
         label="Title"
@@ -66,15 +75,6 @@ export const BorderBannerForm: React.FC<BorderBannerBannerFormProps> = ({
           </div>
         </div>
       </div>
-
-      {text && (
-        <div>
-          <p className="text-sm font-medium text-gray-900 dark:text-white mb-2">
-            Preview
-          </p>
-          <div dangerouslySetInnerHTML={{ __html: generateBannerHTML() }} />
-        </div>
-      )}
 
       <div className="flex gap-3 pt-4">
         <CancelButton onClick={onCancel} />

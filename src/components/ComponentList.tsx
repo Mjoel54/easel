@@ -28,7 +28,7 @@ export default function ComponentList() {
           return (
             <div
               key={component.id}
-              className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-gray-900"
+              className="border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900"
             >
               {activeForm === component.id ? (
                 <div className="p-6">

@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+@theme {
+  --border-width-brand: 1px;
+}
