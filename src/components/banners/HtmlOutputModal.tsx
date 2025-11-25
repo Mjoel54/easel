@@ -9,6 +9,7 @@ interface HTMLOutputModalProps {
   onClose: () => void;
   html: string;
   title?: string;
+  showPreview?: boolean;
 }
 
 export const HTMLOutputModal: React.FC<HTMLOutputModalProps> = ({
@@ -16,6 +17,7 @@ export const HTMLOutputModal: React.FC<HTMLOutputModalProps> = ({
   onClose,
   html,
   title = "Generated HTML",
+  showPreview = true,
 }) => {
   const [copied, setCopied] = useState(false);
 
@@ -70,12 +72,14 @@ export const HTMLOutputModal: React.FC<HTMLOutputModalProps> = ({
         <div className="flex-1 overflow-y-auto p-6">
           <div className="space-y-4">
             {/* Preview */}
-            <div>
-              <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
-                Preview
-              </label>
-              <div dangerouslySetInnerHTML={{ __html: html }} />
-            </div>
+            {showPreview && (
+              <div>
+                <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+                  Preview
+                </label>
+                <div dangerouslySetInnerHTML={{ __html: html }} />
+              </div>
+            )}
 
             {/* HTML Code */}
             <div>
