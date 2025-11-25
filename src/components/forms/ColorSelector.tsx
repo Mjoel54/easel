@@ -1,3 +1,6 @@
+import { useState, useRef, useEffect } from "react";
+import { HexColorPicker } from "react-colorful";
+
 interface ColorSelectorProps {
   id: string;
   label: string;
@@ -13,12 +16,34 @@ export default function ColorSelector({
   onChange,
   helperText,
 }: ColorSelectorProps) {
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const pickerRef = useRef<HTMLDivElement>(null);
+
   const handleTextChange = (textValue: string) => {
     const cleanValue = textValue.startsWith("#")
       ? textValue.slice(1)
       : textValue;
     onChange(`#${cleanValue}`);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        pickerRef.current &&
+        !pickerRef.current.contains(event.target as Node)
+      ) {
+        setIsPickerOpen(false);
+      }
+    };
+
+    if (isPickerOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isPickerOpen]);
 
   return (
     <div>
@@ -29,24 +54,34 @@ export default function ColorSelector({
         {label}
       </label>
       <div className="flex gap-3">
-        <input
-          id={id}
-          type="color"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="h-11 w-20 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer"
-        />
-        <div className="flex-1 flex items-center border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 bg-white dark:bg-gray-700">
-          <span className="pl-4 pr-1 text-gray-600 dark:text-gray-400 select-none font-mono">
+        <div className="relative" ref={pickerRef}>
+          <button
+            type="button"
+            onClick={() => setIsPickerOpen(!isPickerOpen)}
+            className="h-11 w-20 rounded-lg border border-brand border-gray-300 dark:border-gray-600 shadow-sm active:scale-95 cursor-pointer"
+            style={{ backgroundColor: value }}
+            aria-label="Open color picker"
+          />
+
+          {isPickerOpen && (
+            <div className="absolute top-full mt-2 z-[9999] p-3 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 animate-in fade-in slide-in-from-top-2 duration-200">
+              <HexColorPicker color={value} onChange={onChange} />
+            </div>
+          )}
+        </div>
+
+        <div className="flex-1 flex items-center h-11 border border-brand border-gray-300 hover:border-hover dark:border-gray-600 dark:hover:border-hover-dark rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 dark:focus-within:ring-blue-400 dark:focus-within:border-blue-400 bg-white dark:bg-gray-700 transition-all duration-200">
+          <span className="pl-4 pr-1 text-gray-600 dark:text-gray-400 select-none font-mono text-sm">
             #
           </span>
           <input
+            id={id}
             type="text"
             value={value.slice(1)}
             onChange={(e) => handleTextChange(e.target.value)}
             placeholder="8a19cc"
             maxLength={6}
-            className="flex-1 px-1 py-2 bg-transparent focus:outline-none dark:text-white font-mono"
+            className="flex-1 px-1 bg-transparent focus:outline-none dark:text-white font-mono text-sm tracking-wide uppercase"
           />
         </div>
       </div>
