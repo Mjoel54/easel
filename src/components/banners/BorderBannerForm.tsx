@@ -5,7 +5,7 @@ import {
   CancelButton,
   SubmitButton,
 } from "../forms/index.js";
-import { theme } from "../utils/theme.js";
+import { theme } from "../../utils/theme.js";
 
 interface BorderBannerBannerFormProps {
   onCancel: () => void;

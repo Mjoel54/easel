@@ -20,6 +20,7 @@ import { Link, useLocation } from "react-router-dom";
 const navigation = [
   { name: "About", href: "/", current: true },
   { name: "Banners", href: "/banners", current: false },
+  { name: "HTML Editor", href: "/editor", current: false },
 ];
 // const userNavigation = [
 //   { name: "Your profile", href: "#" },
