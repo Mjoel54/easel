@@ -1,5 +1,3 @@
-import React from "react";
-
 interface ThicknessSelectorProps {
   id: string;
   label: string;
