@@ -4,6 +4,7 @@ import {
   TitleSelector,
   CancelButton,
   SubmitButton,
+  ThicknessSelector,
 } from "../forms/index.js";
 import { theme } from "../../utils/theme.js";
 
@@ -58,29 +59,15 @@ export const BorderBannerForm: React.FC<BorderBannerBannerFormProps> = ({
         helperText="Choose a brand colour for the left accent bar"
       />
 
-      <div>
-        <label
-          htmlFor="thickness"
-          className="block text-sm font-medium text-gray-900 dark:text-white mb-2"
-        >
-          Accent Edge Thickness: {thickness}px
-        </label>
-        <div className="max-w-md">
-          <input
-            id="thickness"
-            type="range"
-            min="3"
-            max="30"
-            value={thickness}
-            onChange={(e) => setThickness(Number(e.target.value))}
-            className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600"
-          />
-          <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
-            <span>3px (Subtle)</span>
-            <span>30px (Bold)</span>
-          </div>
-        </div>
-      </div>
+      <ThicknessSelector
+        id="thickness"
+        label="Accent Edge Thickness"
+        value={thickness}
+        onChange={setThickness}
+        min={3}
+        max={30}
+        helperText="true"
+      />
 
       <div className="flex gap-3 pt-4">
         <CancelButton onClick={onCancel} />
