@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { HexColorPicker } from "react-colorful";
+import { motion } from "framer-motion";
 
 interface ColorSelectorProps {
   id: string;
@@ -53,14 +54,16 @@ export default function ColorSelector({
       >
         {label}
       </label>
-      <div className="flex gap-3">
-        <div className="relative" ref={pickerRef}>
-          <button
+      <div className="flex items-center gap-3">
+        <div className="relative h-11" ref={pickerRef}>
+          <motion.button
             type="button"
             onClick={() => setIsPickerOpen(!isPickerOpen)}
-            className="h-11 w-20 rounded-lg border border-brand border-gray-300 dark:border-gray-600 shadow-sm active:scale-95 cursor-pointer"
+            className="h-full w-20 rounded-lg border border-gray-300 dark:border-gray-600 shadow-sm cursor-pointer"
             style={{ backgroundColor: value }}
             aria-label="Open color picker"
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.1 }}
           />
 
           {isPickerOpen && (
@@ -70,7 +73,7 @@ export default function ColorSelector({
           )}
         </div>
 
-        <div className="flex-1 flex items-center h-11 border border-brand border-gray-300 hover:border-hover dark:border-gray-600 dark:hover:border-hover-dark rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 dark:focus-within:ring-blue-400 dark:focus-within:border-blue-400 bg-white dark:bg-gray-700 transition-all duration-200">
+        <div className="flex-1 flex items-center h-11 border border-gray-300 hover:border-blue-300 dark:border-gray-600 dark:hover:border-blue-400 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 dark:focus-within:ring-blue-400 dark:focus-within:border-blue-400 bg-white dark:bg-gray-700 transition-colors duration-200">
           <span className="pl-4 pr-1 text-gray-600 dark:text-gray-400 select-none font-mono text-sm">
             #
           </span>
