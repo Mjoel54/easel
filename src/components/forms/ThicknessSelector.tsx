@@ -15,8 +15,8 @@ export default function ThicknessSelector({
   onChange,
   min = 3,
   max = 30,
-  helperText,
-}: ThicknessSelectorProps) {
+}: // helperText,
+ThicknessSelectorProps) {
   return (
     <div>
       <label
@@ -35,12 +35,12 @@ export default function ThicknessSelector({
           onChange={(e) => onChange(Number(e.target.value))}
           className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600"
         />
-        {helperText && (
+        {/* {helperText && (
           <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
             <span>{min}px (Subtle)</span>
             <span>{max}px (Bold)</span>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
