@@ -17,10 +17,10 @@ export default function GradientBannerForm({
   onGenerate,
 }: GradientBannerFormProps) {
   const [text, setText] = useState("");
-  const [backgroundColor, setBackgroundColor] = useState(theme.primary);
   const [gradientDirection, setGradientDirection] = useState<
     "lighter" | "darker" | "custom"
   >("custom");
+  const [startColour, setstartColour] = useState(theme.primary);
   const [customEndColor, setCustomEndColor] = useState(theme.gradientEnd);
 
   const adjustColor = (hex: string, percent: number): string => {
@@ -38,10 +38,10 @@ export default function GradientBannerForm({
       endColor = customEndColor;
     } else {
       const adjustment = gradientDirection === "darker" ? -30 : 30;
-      endColor = adjustColor(backgroundColor, adjustment);
+      endColor = adjustColor(startColour, adjustment);
     }
 
-    return `<div style="position: relative; background: linear-gradient(135deg, ${backgroundColor} 0%, ${endColor} 100%); padding: 24px 32px; margin-bottom: 1rem; border-radius: 16px; overflow: hidden;">
+    return `<div style="position: relative; background: linear-gradient(135deg, ${startColour} 0%, ${endColor} 100%); padding: 24px 32px; margin-bottom: 1rem; border-radius: 16px; overflow: hidden;">
   <h2 style="position: relative; margin: 0; color: #ffffff; font-size: 28px;"><strong>${text}</strong></h2>
 </div>`;
   };
@@ -70,16 +70,9 @@ export default function GradientBannerForm({
         onChange={setText}
       />
 
-      <ColorSelector
-        id="bg-color"
-        label="Gradient Start"
-        value={backgroundColor}
-        onChange={setBackgroundColor}
-      />
-
       <div>
         <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
-          Gradient End
+          Gradient End Style
         </label>
         <div className="flex gap-4 flex-wrap">
           <label className="flex items-center gap-2 cursor-pointer">
@@ -136,15 +129,27 @@ export default function GradientBannerForm({
         </div>
       </div>
 
-      {gradientDirection === "custom" && (
-        <ColorSelector
-          id="gradient-end-color"
-          label="Gradient End Colour"
-          value={customEndColor}
-          onChange={setCustomEndColor}
-          helperText="Choose a custom end colour for your gradient"
-        />
-      )}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <ColorSelector
+            id="gradient-start-color"
+            label="Start Colour"
+            value={startColour}
+            onChange={setstartColour}
+          />
+        </div>
+        {gradientDirection === "custom" && (
+          <div>
+            <ColorSelector
+              id="gradient-end-color"
+              label="End Colour"
+              value={customEndColor}
+              onChange={setCustomEndColor}
+              // helperText="Choose a custom end colour for your gradient"
+            />
+          </div>
+        )}
+      </div>
 
       <div className="flex gap-3 pt-4">
         <CancelButton onClick={onCancel} />
