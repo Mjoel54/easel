@@ -30,8 +30,19 @@ export class BannerService {
       name: "Border",
       formComponent: BorderBannerForm,
       preview: `<div style="background: #f5f7fa; padding: 24px 32px; margin-bottom: 1rem; border-radius: 8px; border-left: ${theme.thickness}px solid ${theme.primary};">
-  <h2 style="margin: 0; color: #1e293b; font-size: 26px; line-height: 1.3;"><strong>Heading</strong></h2>
+  <h2 style="margin: 0; color: #1e293b; font-size: 26px;"><strong>Heading</strong></h2>
 </div>`,
+    };
+  }
+
+  static get Outline() {
+    return {
+      id: 4,
+      name: "Outline",
+      formComponent: BorderBannerForm,
+      preview: `<div style="padding: 24px 32px; margin-bottom: 1rem; border-top: ${theme.thickness}px solid ${theme.primary}; border-bottom: ${theme.thickness}px solid ${theme.primary}; background-color: #f8faff;">
+        <h2 style="margin: 0; color: ${theme.primary}; font-size: 26px;"><strong>Outline Heading</strong></h2>
+      </div>`,
     };
   }
 }
