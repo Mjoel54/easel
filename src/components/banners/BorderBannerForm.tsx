@@ -51,26 +51,23 @@ export const BorderBannerForm: React.FC<BorderBannerBannerFormProps> = ({
         onChange={setText}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <ColorSelector
-            id="accent-color"
-            label="Accent Colour"
-            value={accentColor}
-            onChange={setAccentColor}
-            // helperText="Choose a brand colour for the left accent bar"
-          />
-        </div>
-        <div>
-          <ThicknessSelector
-            id="thickness"
-            label="Accent Edge Thickness"
-            value={thickness}
-            onChange={setThickness}
-            min={3}
-            max={30}
-            helperText="true"
-          />
-        </div>
+        <ColorSelector
+          id="accent-color"
+          label="Accent Colour"
+          value={accentColor}
+          onChange={setAccentColor}
+          // helperText="Choose a brand colour for the left accent bar"
+        />
+
+        <ThicknessSelector
+          id="thickness"
+          label="Accent Edge Thickness"
+          value={thickness}
+          onChange={setThickness}
+          min={3}
+          max={30}
+          helperText="true"
+        />
       </div>
       <div className="flex gap-3 pt-4">
         <CancelButton onClick={onCancel} />
