@@ -3,5 +3,13 @@ import TitleSelector from "./TitleSelector.tsx";
 import { CancelButton } from "./CancelButton.tsx";
 import SubmitButton from "./SubmitButton.tsx";
 import ThicknessSelector from "./ThicknessSelector.tsx";
+import CopyButton from "./CopyButton.tsx";
 
-export { ColorSelector, TitleSelector, CancelButton, SubmitButton, ThicknessSelector };
+export {
+  ColorSelector,
+  TitleSelector,
+  CancelButton,
+  SubmitButton,
+  ThicknessSelector,
+  CopyButton,
+};

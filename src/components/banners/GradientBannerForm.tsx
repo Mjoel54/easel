@@ -130,24 +130,21 @@ export default function GradientBannerForm({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <ColorSelector
-            id="gradient-start-color"
-            label="Start Colour"
-            value={startColour}
-            onChange={setstartColour}
-          />
-        </div>
+        <ColorSelector
+          id="gradient-start-color"
+          label="Start Colour"
+          value={startColour}
+          onChange={setstartColour}
+        />
+
         {gradientDirection === "custom" && (
-          <div>
-            <ColorSelector
-              id="gradient-end-color"
-              label="End Colour"
-              value={customEndColor}
-              onChange={setCustomEndColor}
-              // helperText="Choose a custom end colour for your gradient"
-            />
-          </div>
+          <ColorSelector
+            id="gradient-end-color"
+            label="End Colour"
+            value={customEndColor}
+            onChange={setCustomEndColor}
+            // helperText="Choose a custom end colour for your gradient"
+          />
         )}
       </div>
 
