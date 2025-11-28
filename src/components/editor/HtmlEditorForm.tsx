@@ -21,6 +21,9 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
   const [htmlInput, setHtmlInput] = useState("");
   const [parsedNodes, setParsedNodes] = useState<HtmlNode[]>([]);
   const [editedTexts, setEditedTexts] = useState<{ [key: string]: string }>({});
+  const [editedAttributes, setEditedAttributes] = useState<{
+    [key: string]: { [attr: string]: string };
+  }>({});
 
   const parseHtmlToNodes = (html: string): HtmlNode[] => {
     const parser = new DOMParser();
@@ -94,14 +97,21 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
 
     // Initialize edited texts with original values
     const texts: { [key: string]: string } = {};
+    const attributes: { [key: string]: { [attr: string]: string } } = {};
+
     const collectTexts = (node: HtmlNode) => {
       if (node.isTextNode) {
         texts[node.id] = node.textContent;
+      }
+      // For anchor tags, collect href attribute
+      if (node.tagName === "a" && node.attributes.href) {
+        attributes[node.id] = { href: node.attributes.href };
       }
       node.children.forEach(collectTexts);
     };
     nodes.forEach(collectTexts);
     setEditedTexts(texts);
+    setEditedAttributes(attributes);
   };
 
   const reconstructHtml = (node: HtmlNode): string => {
@@ -109,7 +119,12 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
       return editedTexts[node.id] || node.textContent;
     }
 
-    const attrs = Object.entries(node.attributes)
+    // Use edited attributes if available, otherwise use original
+    const finalAttributes = editedAttributes[node.id]
+      ? { ...node.attributes, ...editedAttributes[node.id] }
+      : node.attributes;
+
+    const attrs = Object.entries(finalAttributes)
       .map(([key, value]) => `${key}="${value}"`)
       .join(" ");
 
@@ -132,8 +147,91 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
     }));
   };
 
+  const updateAttribute = (id: string, attr: string, value: string) => {
+    setEditedAttributes((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        [attr]: value,
+      },
+    }));
+  };
+
   const renderNode = (node: HtmlNode, depth: number = 0): React.JSX.Element => {
     const indent = depth * 8;
+
+    // Special handling for anchor tags
+    if (node.tagName === "a") {
+      const textChild = node.children.find((child) => child.isTextNode);
+      const href =
+        editedAttributes[node.id]?.href || node.attributes.href || "";
+      const text = textChild
+        ? editedTexts[textChild.id] || textChild.textContent
+        : "";
+
+      return (
+        <div key={node.id} style={{ paddingLeft: `${indent}px` }}>
+          <div className="py-2 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+            <span className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
+              &lt;{node.tagName}&gt;
+            </span>
+          </div>
+
+          {/* Link Text Field */}
+          {textChild && (
+            <div
+              className="flex items-start gap-4 py-2 pr-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+              style={{ paddingLeft: `${indent + 16}px` }}
+            >
+              <div className="shrink-0 w-32 pt-2">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Link Text
+                </span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <input
+                  type="text"
+                  value={text}
+                  onChange={(e) => updateText(textChild.id, e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Link URL Field */}
+          <div
+            className="flex items-start gap-4 py-2 pr-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+            style={{ paddingLeft: `${indent + 16}px` }}
+          >
+            <div className="shrink-0 w-32 pt-2">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Link URL
+              </span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <input
+                type="text"
+                value={href}
+                onChange={(e) =>
+                  updateAttribute(node.id, "href", e.target.value)
+                }
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+
+          <div
+            className="py-1 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+            style={{ paddingLeft: `${indent}px` }}
+          >
+            <span className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
+              &lt;/{node.tagName}&gt;
+            </span>
+          </div>
+        </div>
+      );
+    }
 
     if (node.isTextNode) {
       const text = editedTexts[node.id] || "";
@@ -145,7 +243,7 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
           className="flex items-start gap-4 py-2 pr-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
           style={{ paddingLeft: `${indent}px` }}
         >
-          <div className="flex-shrink-0 w-32 pt-2">
+          <div className="shrink-0 w-32 pt-2">
             <span className="text-sm font-mono text-gray-500 dark:text-gray-400">
               text
             </span>
@@ -229,6 +327,7 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
               onClick={() => {
                 setParsedNodes([]);
                 setEditedTexts({});
+                setEditedAttributes({});
                 setHtmlInput("");
               }}
               className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
