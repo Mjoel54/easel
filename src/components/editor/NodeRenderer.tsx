@@ -1,8 +1,6 @@
-import React from "react";
 import { type HtmlNode } from "./types";
 import { EditableField } from "./EditableField";
-import { EditableLinkUrl } from "./EditableLinkUrl";
-import { EditableLinkText } from "./EditableLinkText";
+import { EditableLinkUrl, EditableLinkText } from "./index";
 
 interface NodeRendererProps {
   node: HtmlNode;
@@ -13,14 +11,14 @@ interface NodeRendererProps {
   depth?: number;
 }
 
-export const NodeRenderer: React.FC<NodeRendererProps> = ({
+export default function NodeRenderer({
   node,
   editedTexts,
   editedAttributes,
   updateText,
   updateAttribute,
   depth = 0,
-}) => {
+}: NodeRendererProps) {
   const indent = depth * 8;
 
   // Special handling for anchor tags
@@ -128,4 +126,4 @@ export const NodeRenderer: React.FC<NodeRendererProps> = ({
       )}
     </div>
   );
-};
+}

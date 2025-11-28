@@ -24,13 +24,9 @@ export const EditableField: React.FC<EditableFieldProps> = ({
     type === "textarea" ? Math.max(1, Math.ceil(value.length / 80)) : undefined;
 
   return (
-    // 1. **REMOVE** `py-2`, `pr-4`, and the `style` for `paddingLeft`
-    //    The wrapper now extends full width without internal padding.
     <div className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
       <div
-        // 2. **ADD** padding classes here: `flex`, `items-start`, `gap-4`, `py-2`, `pr-4`
         className="flex items-start gap-4 py-2 pr-4"
-        // 3. **APPLY** `paddingLeft` style here for indentation
         style={{ paddingLeft: `${indent}px` }}
       >
         <div className="shrink-0 w-32 pt-2">

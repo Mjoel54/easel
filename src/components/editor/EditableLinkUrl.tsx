@@ -1,16 +1,14 @@
-import React from "react";
-
 interface EditableLinkUrlProps {
   value: string;
   onChange: (value: string) => void;
   indent?: number;
 }
 
-export const EditableLinkUrl: React.FC<EditableLinkUrlProps> = ({
+export default function EditableLinkUrl({
   value,
   onChange,
   indent = 0,
-}) => {
+}: EditableLinkUrlProps) {
   const labelClassName = "text-sm font-mono text-gray-500 dark:text-gray-400";
 
   const inputClassName =
@@ -37,4 +35,4 @@ export const EditableLinkUrl: React.FC<EditableLinkUrlProps> = ({
       </div>
     </div>
   );
-};
+}
