@@ -131,6 +131,28 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
       return `${openTag}${editedTexts[node.id]}${closeTag}`;
     }
 
+    // Void elements (self-closing tags) that should not have closing tags
+    const voidElements = [
+      "area",
+      "base",
+      "br",
+      "col",
+      "embed",
+      "hr",
+      "img",
+      "input",
+      "link",
+      "meta",
+      "param",
+      "source",
+      "track",
+      "wbr",
+    ];
+
+    if (voidElements.includes(node.tagName)) {
+      return openTag;
+    }
+
     const childrenHtml = node.children.map(reconstructHtml).join("");
 
     return `${openTag}${childrenHtml}${closeTag}`;

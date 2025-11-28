@@ -14,10 +14,30 @@ export const EditableLinkText: React.FC<EditableLinkTextProps> = ({
   const labelClassName = "text-sm font-mono text-gray-500 dark:text-gray-400";
 
   const inputClassName =
-    "w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm";
+    "w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
 
-  // Calculate rows based on content length for better UX
-  const rows = Math.max(1, Math.ceil(innerHTML.length / 80));
+  // Extract plain text from innerHTML for display
+  const extractTextContent = (html: string): string => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = html;
+    return tempDiv.textContent || "";
+  };
+
+  // Update innerHTML by replacing text content while preserving structure
+  const updateInnerHTML = (newText: string): string => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = innerHTML;
+    tempDiv.textContent = newText;
+    return tempDiv.innerHTML;
+  };
+
+  const textContent = extractTextContent(innerHTML);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newText = e.target.value;
+    const newInnerHTML = updateInnerHTML(newText);
+    onChange(newInnerHTML);
+  };
 
   return (
     <div className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
@@ -29,12 +49,12 @@ export const EditableLinkText: React.FC<EditableLinkTextProps> = ({
           <span className={labelClassName}>Link text</span>
         </div>
         <div className="flex-1 min-w-0">
-          <textarea
-            value={innerHTML}
-            onChange={(e) => onChange(e.target.value)}
-            rows={rows}
-            className={`${inputClassName} resize-none`}
-            placeholder="Enter link text or HTML..."
+          <input
+            type="text"
+            value={textContent}
+            onChange={handleChange}
+            className={inputClassName}
+            placeholder="Enter link text..."
           />
         </div>
       </div>
