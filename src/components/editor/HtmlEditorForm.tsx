@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SubmitButton } from "../forms/index.js";
-import { NodeRenderer } from "./NodeRenderer"; // Adjust the import path
+import { NodeRenderer } from "./index.js";
 import { type HtmlNode } from "./types";
 
 interface HtmlEditorFormProps {
