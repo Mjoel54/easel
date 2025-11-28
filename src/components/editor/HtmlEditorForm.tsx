@@ -92,8 +92,16 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
       if (node.isTextNode) {
         texts[node.id] = node.textContent;
       }
-      if (node.tagName === "a" && node.attributes.href) {
-        attributes[node.id] = { href: node.attributes.href };
+      if (node.tagName === "a") {
+        // Store the innerHTML for anchor tags to preserve nested HTML
+        if (node.originalNode && node.originalNode instanceof Element) {
+          texts[node.id] = node.originalNode.innerHTML;
+        }
+        if (node.attributes.href) {
+          attributes[node.id] = { href: node.attributes.href };
+        }
+        // Don't traverse children for anchor tags since we're storing innerHTML
+        return;
       }
       node.children.forEach(collectTexts);
     };
@@ -117,6 +125,12 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
 
     const openTag = attrs ? `<${node.tagName} ${attrs}>` : `<${node.tagName}>`;
     const closeTag = `</${node.tagName}>`;
+
+    // Special handling for anchor tags: use stored innerHTML instead of reconstructing from children
+    if (node.tagName === "a" && editedTexts[node.id] !== undefined) {
+      return `${openTag}${editedTexts[node.id]}${closeTag}`;
+    }
+
     const childrenHtml = node.children.map(reconstructHtml).join("");
 
     return `${openTag}${childrenHtml}${closeTag}`;

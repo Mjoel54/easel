@@ -1,6 +1,8 @@
 import React from "react";
 import { type HtmlNode } from "./types";
 import { EditableField } from "./EditableField";
+import { EditableLinkUrl } from "./EditableLinkUrl";
+import { EditableLinkText } from "./EditableLinkText";
 
 interface NodeRendererProps {
   node: HtmlNode;
@@ -23,11 +25,21 @@ export const NodeRenderer: React.FC<NodeRendererProps> = ({
 
   // Special handling for anchor tags
   if (node.tagName === "a") {
-    const textChild = node.children.find((child) => child.isTextNode);
     const href = editedAttributes[node.id]?.href || node.attributes.href || "";
-    const text = textChild
-      ? editedTexts[textChild.id] || textChild.textContent
-      : "";
+
+    // Get the innerHTML from the original node, or use edited version
+    // This preserves nested HTML like <strong>, <em>, <span>
+    const getInnerHTML = () => {
+      if (editedTexts[node.id] !== undefined) {
+        return editedTexts[node.id];
+      }
+      if (node.originalNode && node.originalNode instanceof Element) {
+        return node.originalNode.innerHTML;
+      }
+      return node.textContent;
+    };
+
+    const innerHTML = getInnerHTML();
 
     return (
       <div key={node.id}>
@@ -40,26 +52,18 @@ export const NodeRenderer: React.FC<NodeRendererProps> = ({
           </span>
         </div>
 
-        {/* Link Text Field */}
-        {textChild && (
-          <EditableField
-            label="Link Text"
-            value={text}
-            onChange={(value) => updateText(textChild.id, value)}
-            indent={indent + 16}
-            type="input"
-            labelStyle="default"
-          />
-        )}
+        {/* Link Text Field - shows and edits innerHTML */}
+        <EditableLinkText
+          innerHTML={innerHTML}
+          onChange={(value) => updateText(node.id, value)}
+          indent={indent + 16}
+        />
 
         {/* Link URL Field */}
-        <EditableField
-          label="Link URL"
+        <EditableLinkUrl
           value={href}
           onChange={(value) => updateAttribute(node.id, "href", value)}
           indent={indent + 16}
-          type="input"
-          labelStyle="default"
         />
 
         <div
@@ -86,7 +90,6 @@ export const NodeRenderer: React.FC<NodeRendererProps> = ({
         onChange={(value) => updateText(node.id, value)}
         indent={indent}
         type="textarea"
-        labelStyle="mono"
       />
     );
   }

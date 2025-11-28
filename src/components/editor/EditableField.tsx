@@ -6,7 +6,6 @@ interface EditableFieldProps {
   onChange: (value: string) => void;
   indent?: number;
   type?: "input" | "textarea";
-  labelStyle?: "default" | "mono";
 }
 
 export const EditableField: React.FC<EditableFieldProps> = ({
@@ -15,12 +14,8 @@ export const EditableField: React.FC<EditableFieldProps> = ({
   onChange,
   indent = 0,
   type = "input",
-  labelStyle = "default",
 }) => {
-  const labelClassName =
-    labelStyle === "mono"
-      ? "text-sm font-mono text-gray-500 dark:text-gray-400"
-      : "text-sm font-medium text-gray-700 dark:text-gray-300";
+  const labelClassName = "text-sm font-mono text-gray-500 dark:text-gray-400";
 
   const inputClassName =
     "w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
