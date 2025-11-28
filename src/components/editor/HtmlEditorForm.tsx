@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import { SubmitButton } from "../forms/index.js";
-
-interface HtmlNode {
-  id: string;
-  tagName: string;
-  textContent: string;
-  isTextNode: boolean;
-  attributes: { [key: string]: string };
-  children: HtmlNode[];
-  originalNode: Node;
-}
+import { NodeRenderer } from "./NodeRenderer"; // Adjust the import path
+import { type HtmlNode } from "./types";
 
 interface HtmlEditorFormProps {
   onGenerate: (html: string) => void;
@@ -21,6 +13,9 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
   const [htmlInput, setHtmlInput] = useState("");
   const [parsedNodes, setParsedNodes] = useState<HtmlNode[]>([]);
   const [editedTexts, setEditedTexts] = useState<{ [key: string]: string }>({});
+  const [editedAttributes, setEditedAttributes] = useState<{
+    [key: string]: { [attr: string]: string };
+  }>({});
 
   const parseHtmlToNodes = (html: string): HtmlNode[] => {
     const parser = new DOMParser();
@@ -28,7 +23,6 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
     let idCounter = 0;
 
     const traverse = (node: Node): HtmlNode | null => {
-      // Skip empty text nodes
       if (node.nodeType === Node.TEXT_NODE) {
         const text = node.textContent?.trim() || "";
         if (text) {
@@ -49,7 +43,6 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
         const element = node as Element;
         const attributes: { [key: string]: string } = {};
 
-        // Capture all attributes
         for (let i = 0; i < element.attributes.length; i++) {
           const attr = element.attributes[i];
           attributes[attr.name] = attr.value;
@@ -92,16 +85,29 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
     const nodes = parseHtmlToNodes(htmlInput);
     setParsedNodes(nodes);
 
-    // Initialize edited texts with original values
     const texts: { [key: string]: string } = {};
+    const attributes: { [key: string]: { [attr: string]: string } } = {};
+
     const collectTexts = (node: HtmlNode) => {
       if (node.isTextNode) {
         texts[node.id] = node.textContent;
+      }
+      if (node.tagName === "a") {
+        // Store the innerHTML for anchor tags to preserve nested HTML
+        if (node.originalNode && node.originalNode instanceof Element) {
+          texts[node.id] = node.originalNode.innerHTML;
+        }
+        if (node.attributes.href) {
+          attributes[node.id] = { href: node.attributes.href };
+        }
+        // Don't traverse children for anchor tags since we're storing innerHTML
+        return;
       }
       node.children.forEach(collectTexts);
     };
     nodes.forEach(collectTexts);
     setEditedTexts(texts);
+    setEditedAttributes(attributes);
   };
 
   const reconstructHtml = (node: HtmlNode): string => {
@@ -109,12 +115,44 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
       return editedTexts[node.id] || node.textContent;
     }
 
-    const attrs = Object.entries(node.attributes)
+    const finalAttributes = editedAttributes[node.id]
+      ? { ...node.attributes, ...editedAttributes[node.id] }
+      : node.attributes;
+
+    const attrs = Object.entries(finalAttributes)
       .map(([key, value]) => `${key}="${value}"`)
       .join(" ");
 
     const openTag = attrs ? `<${node.tagName} ${attrs}>` : `<${node.tagName}>`;
     const closeTag = `</${node.tagName}>`;
+
+    // Special handling for anchor tags: use stored innerHTML instead of reconstructing from children
+    if (node.tagName === "a" && editedTexts[node.id] !== undefined) {
+      return `${openTag}${editedTexts[node.id]}${closeTag}`;
+    }
+
+    // Void elements (self-closing tags) that should not have closing tags
+    const voidElements = [
+      "area",
+      "base",
+      "br",
+      "col",
+      "embed",
+      "hr",
+      "img",
+      "input",
+      "link",
+      "meta",
+      "param",
+      "source",
+      "track",
+      "wbr",
+    ];
+
+    if (voidElements.includes(node.tagName)) {
+      return openTag;
+    }
+
     const childrenHtml = node.children.map(reconstructHtml).join("");
 
     return `${openTag}${childrenHtml}${closeTag}`;
@@ -132,59 +170,14 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
     }));
   };
 
-  const renderNode = (node: HtmlNode, depth: number = 0): React.JSX.Element => {
-    const indent = depth * 8;
-
-    if (node.isTextNode) {
-      const text = editedTexts[node.id] || "";
-      const rows = Math.max(1, Math.ceil(text.length / 80));
-
-      return (
-        <div
-          key={node.id}
-          className="flex items-start gap-4 py-2 pr-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
-          style={{ paddingLeft: `${indent}px` }}
-        >
-          <div className="flex-shrink-0 w-32 pt-2">
-            <span className="text-sm font-mono text-gray-500 dark:text-gray-400">
-              text
-            </span>
-          </div>
-          <div className="flex-1 min-w-0">
-            <textarea
-              value={text}
-              onChange={(e) => updateText(node.id, e.target.value)}
-              rows={rows}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-            />
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <div key={node.id}>
-        <div
-          className="py-2 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
-          style={{ paddingLeft: `${indent}px` }}
-        >
-          <span className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
-            &lt;{node.tagName}&gt;
-          </span>
-        </div>
-        {node.children.map((child) => renderNode(child, depth + 1))}
-        {node.children.length > 0 && (
-          <div
-            className="py-1 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
-            style={{ paddingLeft: `${indent}px` }}
-          >
-            <span className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
-              &lt;/{node.tagName}&gt;
-            </span>
-          </div>
-        )}
-      </div>
-    );
+  const updateAttribute = (id: string, attr: string, value: string) => {
+    setEditedAttributes((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        [attr]: value,
+      },
+    }));
   };
 
   const handleParseSubmit = (e: React.FormEvent) => {
@@ -229,6 +222,7 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
               onClick={() => {
                 setParsedNodes([]);
                 setEditedTexts({});
+                setEditedAttributes({});
                 setHtmlInput("");
               }}
               className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
@@ -245,7 +239,16 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
               </div>
             </div>
             <div className="p-4 max-h-[600px] overflow-y-auto">
-              {parsedNodes.map((node) => renderNode(node))}
+              {parsedNodes.map((node) => (
+                <NodeRenderer
+                  key={node.id}
+                  node={node}
+                  editedTexts={editedTexts}
+                  editedAttributes={editedAttributes}
+                  updateText={updateText}
+                  updateAttribute={updateAttribute}
+                />
+              ))}
             </div>
           </div>
 
