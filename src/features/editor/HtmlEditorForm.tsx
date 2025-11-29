@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SubmitButton } from "../forms/index.js";
-import { NodeRenderer } from "./index.js";
+import { NodeElementList } from "./index.js";
 import { type HtmlNode } from "./types/types.js";
 import { parseHtmlToNodes } from "./utils/parseHtmlToNodes.js";
 import { voidElements } from "./utils/voidElements.js";
@@ -161,7 +161,7 @@ export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
             </div>
             <div className="max-h-[600px] overflow-y-auto">
               {parsedNodes.map((node) => (
-                <NodeRenderer
+                <NodeElementList
                   key={node.id}
                   node={node}
                   editedTexts={editedTexts}

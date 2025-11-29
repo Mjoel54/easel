@@ -1,4 +1,4 @@
-interface EditableFieldProps {
+interface EditableNodeElementProps {
   label: string;
   value: string;
   onChange: (value: string) => void;
@@ -6,14 +6,14 @@ interface EditableFieldProps {
   type?: "input" | "textarea";
 }
 
-export default function EditableField({
+export function EditableNodeElement({
   label,
   value,
   onChange,
   indent = 0,
   type = "input",
-}: EditableFieldProps) {
-  const labelClassName = "text-md font-mono text-blue-600 dark:text-blue-400";
+}: EditableNodeElementProps) {
+  const labelClassName = "text-md font-mono text-gray-500 dark:text-gray-400";
 
   const inputClassName =
     "w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
@@ -22,7 +22,7 @@ export default function EditableField({
     type === "textarea" ? Math.max(1, Math.ceil(value.length / 80)) : undefined;
 
   return (
-    <div className=" hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+    <div className=" hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors pl-1">
       <div
         className="flex items-start gap-4 py-2 pr-4"
         style={{ paddingLeft: `${indent}px` }}
@@ -51,3 +51,12 @@ export default function EditableField({
     </div>
   );
 }
+
+// <div
+//   className="py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+//   style={{ paddingLeft: `${indent}px` }}
+// >
+//   <span className="text-sm font-mono text-gray-500 dark:text-gray-400">
+//     &lt;{nodeName}&gt;
+//   </span>
+// </div>

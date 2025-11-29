@@ -1,12 +1,13 @@
-import { type HtmlNode } from "../types/types";
+import { type HtmlNode } from "../types/types.js";
 import {
   AnchorUrlElement,
   AnchorTextElement,
   NodeElement,
-  EditableField,
+  EditableNodeElement,
 } from "../index";
+import { getInnerHTML } from "../utils/index.js";
 
-interface NodeRendererProps {
+interface NodeElementListProps {
   node: HtmlNode;
   editedTexts: { [key: string]: string };
   editedAttributes: { [key: string]: { [attr: string]: string } };
@@ -15,14 +16,14 @@ interface NodeRendererProps {
   depth?: number;
 }
 
-export default function NodeRenderer({
+export function NodeElementList({
   node,
   editedTexts,
   editedAttributes,
   updateText,
   updateAttribute,
   depth = 0,
-}: NodeRendererProps) {
+}: NodeElementListProps) {
   const indent = depth * 8;
 
   // Special handling for anchor tags
@@ -31,17 +32,8 @@ export default function NodeRenderer({
 
     // Get the innerHTML from the original node, or use edited version
     // This preserves nested HTML like <strong>, <em>, <span>
-    const getInnerHTML = () => {
-      if (editedTexts[node.id] !== undefined) {
-        return editedTexts[node.id];
-      }
-      if (node.originalNode && node.originalNode instanceof Element) {
-        return node.originalNode.innerHTML;
-      }
-      return node.textContent;
-    };
 
-    const innerHTML = getInnerHTML();
+    const innerHTML = getInnerHTML(node, editedTexts);
 
     return (
       <div key={node.id}>
@@ -69,7 +61,7 @@ export default function NodeRenderer({
     const text = editedTexts[node.id] || "";
 
     return (
-      <EditableField
+      <EditableNodeElement
         key={node.id}
         label="text"
         value={text}
@@ -86,7 +78,7 @@ export default function NodeRenderer({
       <NodeElement nodeName={node.tagName} indent={indent} />
 
       {node.children.map((child) => (
-        <NodeRenderer
+        <NodeElementList
           key={child.id}
           node={child}
           editedTexts={editedTexts}
