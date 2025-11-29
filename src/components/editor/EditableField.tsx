@@ -15,7 +15,8 @@ export const EditableField: React.FC<EditableFieldProps> = ({
   indent = 0,
   type = "input",
 }) => {
-  const labelClassName = "text-sm font-mono text-gray-500 dark:text-gray-400";
+  const labelClassName =
+    "text-md font-mono font-semibold text-blue-600 dark:text-blue-400";
 
   const inputClassName =
     "w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
@@ -24,16 +25,15 @@ export const EditableField: React.FC<EditableFieldProps> = ({
     type === "textarea" ? Math.max(1, Math.ceil(value.length / 80)) : undefined;
 
   return (
-    <div className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+    <div className="hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
       <div
         className="flex items-start gap-4 py-2 pr-4"
         style={{ paddingLeft: `${indent}px` }}
       >
-        <div className="shrink-0 w-32 pt-2">
+        <div className="shrink-0 w-32 pt-2 ">
           <span className={labelClassName}>{label}</span>
         </div>
         <div className="flex-1 min-w-0">
-          {/* ... (input/textarea content is unchanged) ... */}
           {type === "textarea" ? (
             <textarea
               value={value}
