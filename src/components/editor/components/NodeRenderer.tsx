@@ -1,6 +1,10 @@
-import { type HtmlNode } from "./types";
-import { EditableField } from "./EditableField";
-import { EditableLinkUrl, EditableLinkText } from "./index";
+import { type HtmlNode } from "../types/types";
+import {
+  AnchorUrlElement,
+  AnchorTextElement,
+  NodeElement,
+  EditableField,
+} from "../index";
 
 interface NodeRendererProps {
   node: HtmlNode;
@@ -41,37 +45,21 @@ export default function NodeRenderer({
 
     return (
       <div key={node.id}>
-        <div
-          className="py-2 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
-          style={{ paddingLeft: `${indent}px` }}
-        >
-          <span className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
-            &lt;{node.tagName}&gt;
-          </span>
-        </div>
+        <NodeElement nodeName={node.tagName} indent={indent} />
 
-        {/* Link Text Field - shows and edits innerHTML */}
-        <EditableLinkText
+        <AnchorTextElement
           innerHTML={innerHTML}
           onChange={(value) => updateText(node.id, value)}
           indent={indent + 16}
         />
 
-        {/* Link URL Field */}
-        <EditableLinkUrl
+        <AnchorUrlElement
           value={href}
           onChange={(value) => updateAttribute(node.id, "href", value)}
           indent={indent + 16}
         />
 
-        <div
-          className="py-1 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
-          style={{ paddingLeft: `${indent}px` }}
-        >
-          <span className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
-            &lt;/{node.tagName}&gt;
-          </span>
-        </div>
+        <NodeElement nodeName={`/${node.tagName}`} indent={indent} />
       </div>
     );
   }
@@ -95,14 +83,8 @@ export default function NodeRenderer({
   // General rendering for other tags
   return (
     <div key={node.id}>
-      <div
-        className="py-2 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
-        style={{ paddingLeft: `${indent}px` }}
-      >
-        <span className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
-          &lt;{node.tagName}&gt;
-        </span>
-      </div>
+      <NodeElement nodeName={node.tagName} indent={indent} />
+
       {node.children.map((child) => (
         <NodeRenderer
           key={child.id}
@@ -115,14 +97,7 @@ export default function NodeRenderer({
         />
       ))}
       {node.children.length > 0 && (
-        <div
-          className="py-1 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
-          style={{ paddingLeft: `${indent}px` }}
-        >
-          <span className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
-            &lt;/{node.tagName}&gt;
-          </span>
-        </div>
+        <NodeElement nodeName={`/${node.tagName}`} indent={indent} />
       )}
     </div>
   );
