@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { PageHeader } from "../components/index.js";
-import { HtmlEditorForm } from "../components/editor/HtmlEditorForm.js";
-import { HTMLOutputModal } from "../components/banners/HtmlOutputModal.js";
+import { PageHeader } from "../features/index.js";
+import { HtmlEditorForm } from "../features/editor/HtmlEditorForm.js";
+import { HTMLOutputModal } from "../features/banners/HtmlOutputModal.js";
 
 export default function Editor() {
   const [generatedHtml, setGeneratedHtml] = useState("");

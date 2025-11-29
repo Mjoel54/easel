@@ -4,7 +4,7 @@ interface AnchorUrlElementProps {
   indent?: number;
 }
 
-export default function AnchorUrlElement({
+export function AnchorUrlElement({
   value,
   onChange,
   indent = 0,

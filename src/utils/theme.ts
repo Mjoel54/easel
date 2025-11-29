@@ -1,6 +1,6 @@
 export const theme = {
-  primary: "#d532cc",
+  primary: "#2b12b5",
   primaryFont: "#ffffff",
-  gradientEnd: "#9025f5",
+  gradientEnd: "#25ebf5",
   thickness: 15,
 };
