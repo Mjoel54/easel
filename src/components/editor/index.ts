@@ -1,13 +1,13 @@
-import EditableLinkUrl from "./EditableLinkUrl";
-import EditableLinkText from "./EditableLinkText";
-import NodeRenderer from "./NodeRenderer";
-import ElementNodeName from "./ElementNodeName";
-import EditableField from "./EditableField";
+import AnchorUrlElement from "./components/AnchorUrlElement";
+import AnchorTextElement from "./components/AnchorTextElement";
+import NodeRenderer from "./components/NodeRenderer";
+import NodeElement from "./components/NodeElement";
+import EditableField from "./components/EditableField";
 
 export {
-  EditableLinkUrl,
-  EditableLinkText,
+  AnchorUrlElement,
+  AnchorTextElement,
   NodeRenderer,
-  ElementNodeName,
+  NodeElement,
   EditableField,
 };

@@ -1,10 +1,10 @@
-import { type HtmlNode } from "./types";
+import { type HtmlNode } from "../types/types";
 import {
-  EditableLinkUrl,
-  EditableLinkText,
-  ElementNodeName,
+  AnchorUrlElement,
+  AnchorTextElement,
+  NodeElement,
   EditableField,
-} from "./index";
+} from "../index";
 
 interface NodeRendererProps {
   node: HtmlNode;
@@ -45,21 +45,21 @@ export default function NodeRenderer({
 
     return (
       <div key={node.id}>
-        <ElementNodeName nodeName={node.tagName} indent={indent} />
+        <NodeElement nodeName={node.tagName} indent={indent} />
 
-        <EditableLinkText
+        <AnchorTextElement
           innerHTML={innerHTML}
           onChange={(value) => updateText(node.id, value)}
           indent={indent + 16}
         />
 
-        <EditableLinkUrl
+        <AnchorUrlElement
           value={href}
           onChange={(value) => updateAttribute(node.id, "href", value)}
           indent={indent + 16}
         />
 
-        <ElementNodeName nodeName={`/${node.tagName}`} indent={indent} />
+        <NodeElement nodeName={`/${node.tagName}`} indent={indent} />
       </div>
     );
   }
@@ -83,7 +83,7 @@ export default function NodeRenderer({
   // General rendering for other tags
   return (
     <div key={node.id}>
-      <ElementNodeName nodeName={node.tagName} indent={indent} />
+      <NodeElement nodeName={node.tagName} indent={indent} />
 
       {node.children.map((child) => (
         <NodeRenderer
@@ -97,7 +97,7 @@ export default function NodeRenderer({
         />
       ))}
       {node.children.length > 0 && (
-        <ElementNodeName nodeName={`/${node.tagName}`} indent={indent} />
+        <NodeElement nodeName={`/${node.tagName}`} indent={indent} />
       )}
     </div>
   );

@@ -1,12 +1,9 @@
-export interface ElementNodeNameProps {
+export interface NodeElementProps {
   nodeName: string;
   indent: number;
 }
 
-export default function ElementNodeName({
-  nodeName,
-  indent,
-}: ElementNodeNameProps) {
+export default function NodeElement({ nodeName, indent }: NodeElementProps) {
   return (
     <div
       className="py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"

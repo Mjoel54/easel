@@ -1,14 +1,14 @@
-interface EditableLinkUrlProps {
+interface AnchorUrlElementProps {
   value: string;
   onChange: (value: string) => void;
   indent?: number;
 }
 
-export default function EditableLinkUrl({
+export default function AnchorUrlElement({
   value,
   onChange,
   indent = 0,
-}: EditableLinkUrlProps) {
+}: AnchorUrlElementProps) {
   const labelClassName = "text-sm font-mono text-gray-500 dark:text-gray-400";
 
   const inputClassName =

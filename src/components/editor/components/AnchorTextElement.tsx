@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { EditableField, ElementNodeName } from "./index.js";
+import { EditableField, NodeElement } from "../index.js";
 
 interface InnerHtmlNode {
   id: string;
@@ -9,7 +9,7 @@ interface InnerHtmlNode {
   children: InnerHtmlNode[];
 }
 
-interface EditableLinkTextProps {
+interface AnchorTextElementProps {
   innerHTML: string;
   onChange: (innerHTML: string) => void;
   indent?: number;
@@ -90,11 +90,11 @@ function collectInitialTexts(nodes: InnerHtmlNode[]): Map<string, string> {
   return texts;
 }
 
-export default function EditableLinkText({
+export default function AnchorTextElement({
   innerHTML,
   onChange,
   indent = 0,
-}: EditableLinkTextProps) {
+}: AnchorTextElementProps) {
   // Parse structure only once on mount
   const [parsedNodes] = useState<InnerHtmlNode[]>(() => parseHTML(innerHTML));
 
@@ -156,10 +156,10 @@ export default function EditableLinkText({
 
     return (
       <div key={node.id}>
-        <ElementNodeName nodeName={node.tagName!} indent={nodeIndent} />
+        <NodeElement nodeName={node.tagName!} indent={nodeIndent} />
         {node.children.map((child) => renderNode(child, depth + 1))}
         {node.children.length > 0 && (
-          <ElementNodeName nodeName={`/${node.tagName}`} indent={nodeIndent} />
+          <NodeElement nodeName={`/${node.tagName}`} indent={nodeIndent} />
         )}
       </div>
     );
