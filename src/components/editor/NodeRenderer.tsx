@@ -1,6 +1,10 @@
 import { type HtmlNode } from "./types";
-import { EditableField } from "./EditableField";
-import { EditableLinkUrl, EditableLinkText, ElementNodeName } from "./index";
+import {
+  EditableLinkUrl,
+  EditableLinkText,
+  ElementNodeName,
+  EditableField,
+} from "./index";
 
 interface NodeRendererProps {
   node: HtmlNode;

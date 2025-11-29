@@ -1,5 +1,3 @@
-import React from "react";
-
 interface EditableFieldProps {
   label: string;
   value: string;
@@ -8,15 +6,14 @@ interface EditableFieldProps {
   type?: "input" | "textarea";
 }
 
-export const EditableField: React.FC<EditableFieldProps> = ({
+export default function EditableField({
   label,
   value,
   onChange,
   indent = 0,
   type = "input",
-}) => {
-  const labelClassName =
-    "text-md font-mono font-semibold text-blue-600 dark:text-blue-400";
+}: EditableFieldProps) {
+  const labelClassName = "text-md font-mono text-blue-600 dark:text-blue-400";
 
   const inputClassName =
     "w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
@@ -25,7 +22,7 @@ export const EditableField: React.FC<EditableFieldProps> = ({
     type === "textarea" ? Math.max(1, Math.ceil(value.length / 80)) : undefined;
 
   return (
-    <div className="hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+    <div className=" hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
       <div
         className="flex items-start gap-4 py-2 pr-4"
         style={{ paddingLeft: `${indent}px` }}
@@ -53,4 +50,4 @@ export const EditableField: React.FC<EditableFieldProps> = ({
       </div>
     </div>
   );
-};
+}
