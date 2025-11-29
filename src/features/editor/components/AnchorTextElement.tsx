@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { EditableField, NodeElement } from "../index.js";
+import { EditableNodeElement, NodeElement } from "../index.js";
 
 interface InnerHtmlNode {
   id: string;
@@ -90,7 +90,7 @@ function collectInitialTexts(nodes: InnerHtmlNode[]): Map<string, string> {
   return texts;
 }
 
-export default function AnchorTextElement({
+export function AnchorTextElement({
   innerHTML,
   onChange,
   indent = 0,
@@ -144,7 +144,7 @@ export default function AnchorTextElement({
 
     if (node.type === "text") {
       return (
-        <EditableField
+        <EditableNodeElement
           key={node.id}
           label="text"
           value={textValues.get(node.id) || ""}

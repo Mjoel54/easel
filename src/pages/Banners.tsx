@@ -1,12 +1,10 @@
-import { PageHeader } from "../components/index.js";
-import ComponentList from "../components/ComponentList.js";
+import { PageHeader } from "../features/index.js";
+import ComponentList from "../features/ComponentList.js";
 
 export default function Banners() {
   return (
     <>
-      <PageHeader
-        title="Banner Components"
-      />
+      <PageHeader title="Banner Components" />
       <ComponentList />
     </>
   );

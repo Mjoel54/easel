@@ -1,4 +1,4 @@
-import { PageHeader } from "../components/index.js";
+import { PageHeader } from "../features/index.js";
 
 export default function About() {
   return (

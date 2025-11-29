@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Layout from "./components/Layout.jsx";
+import Layout from "./features/Layout.js";
 import { About, Banners, Editor } from "./pages/index.js";
-import { Footer } from "./components/index.js";
+import { Footer } from "./features/index.js";
 
 function App() {
   return (
