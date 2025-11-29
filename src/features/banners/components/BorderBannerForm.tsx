@@ -1,22 +1,17 @@
 import React, { useState } from "react";
-import {
-  ColorSelector,
-  TitleSelector,
-  CancelButton,
-  SubmitButton,
-  ThicknessSelector,
-} from "../forms/index.js";
-import { theme } from "../../utils/theme.js";
+import { ColorSelector, TitleSelector, ThicknessSelector } from "./index.js";
+import { CancelButton, SubmitButton } from "../../../components/index.js";
+import { theme } from "../../../utils/theme.js";
 
 interface BorderBannerBannerFormProps {
   onCancel: () => void;
   onGenerate: (html: string) => void;
 }
 
-export const BorderBannerForm: React.FC<BorderBannerBannerFormProps> = ({
+export function BorderBannerForm({
   onCancel,
   onGenerate,
-}) => {
+}: BorderBannerBannerFormProps) {
   const [text, setText] = useState("");
   const [accentColor, setAccentColor] = useState(theme.primary);
   const [thickness, setThickness] = useState(theme.thickness);
@@ -75,4 +70,4 @@ export const BorderBannerForm: React.FC<BorderBannerBannerFormProps> = ({
       </div>
     </form>
   );
-};
+}

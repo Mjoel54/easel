@@ -1,5 +1,5 @@
-import About from "./About";
-import Banners from "./Banners";
-import Editor from "./Editor";
+import { AboutPage } from "./AboutPage";
+import { BannersPage } from "./BannersPage";
+import { EditorPage } from "./EditorPage";
 
-export { About, Banners, Editor };
+export { AboutPage, BannersPage, EditorPage };
