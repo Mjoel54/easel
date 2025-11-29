@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { EditableField, NodeElement } from "../index.js";
 
 interface InnerHtmlNode {
   id: string;
@@ -8,7 +9,7 @@ interface InnerHtmlNode {
   children: InnerHtmlNode[];
 }
 
-interface EditableLinkTextProps {
+interface AnchorTextElementProps {
   innerHTML: string;
   onChange: (innerHTML: string) => void;
   indent?: number;
@@ -89,11 +90,11 @@ function collectInitialTexts(nodes: InnerHtmlNode[]): Map<string, string> {
   return texts;
 }
 
-export default function EditableLinkText({
+export default function AnchorTextElement({
   innerHTML,
   onChange,
   indent = 0,
-}: EditableLinkTextProps) {
+}: AnchorTextElementProps) {
   // Parse structure only once on mount
   const [parsedNodes] = useState<InnerHtmlNode[]>(() => parseHTML(innerHTML));
 
@@ -125,7 +126,9 @@ export default function EditableLinkText({
     const reconstructHTML = (node: InnerHtmlNode): string => {
       if (node.type === "text") {
         // Use the new value if this is the node being updated
-        return node.id === nodeId ? value : (textValues.get(node.id) || node.textContent);
+        return node.id === nodeId
+          ? value
+          : textValues.get(node.id) || node.textContent;
       }
       const childrenHTML = node.children.map(reconstructHTML).join("");
       return `<${node.tagName}>${childrenHTML}</${node.tagName}>`;
@@ -141,52 +144,22 @@ export default function EditableLinkText({
 
     if (node.type === "text") {
       return (
-        <div
+        <EditableField
           key={node.id}
-          className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
-        >
-          <div
-            className="flex items-start gap-4 py-2 pr-4"
-            style={{ paddingLeft: `${nodeIndent}px` }}
-          >
-            <div className="shrink-0 w-32 pt-2">
-              <span className="text-sm font-mono text-gray-500 dark:text-gray-400">
-                text
-              </span>
-            </div>
-            <div className="flex-1 min-w-0">
-              <input
-                type="text"
-                value={textValues.get(node.id) || ""}
-                onChange={(e) => updateText(node.id, e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
-        </div>
+          label="text"
+          value={textValues.get(node.id) || ""}
+          onChange={(value) => updateText(node.id, value)}
+          indent={nodeIndent}
+        />
       );
     }
 
     return (
       <div key={node.id}>
-        <div
-          className="py-1 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
-          style={{ paddingLeft: `${nodeIndent}px` }}
-        >
-          <span className="text-sm font-mono text-gray-600 dark:text-gray-400">
-            &lt;{node.tagName}&gt;
-          </span>
-        </div>
+        <NodeElement nodeName={node.tagName!} indent={nodeIndent} />
         {node.children.map((child) => renderNode(child, depth + 1))}
         {node.children.length > 0 && (
-          <div
-            className="py-1 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
-            style={{ paddingLeft: `${nodeIndent}px` }}
-          >
-            <span className="text-sm font-mono text-gray-600 dark:text-gray-400">
-              &lt;/{node.tagName}&gt;
-            </span>
-          </div>
+          <NodeElement nodeName={`/${node.tagName}`} indent={nodeIndent} />
         )}
       </div>
     );
@@ -206,3 +179,15 @@ export default function EditableLinkText({
     </div>
   );
 }
+
+// const labelClassName =
+//   "text-md font-mono font-semibold text-blue-600 dark:text-blue-400";
+
+// const inputClassName =
+//   "w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
+
+// const rows =
+//   type === "textarea" ? Math.max(1, Math.ceil(value.length / 80)) : undefined;
+
+// return (
+//   <div className="hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"></div>
