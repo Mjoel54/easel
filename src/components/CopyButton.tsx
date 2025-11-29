@@ -4,7 +4,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 
-export default function CopyButton({
+export function CopyButton({
   html,
   handleCopy,
   copied,

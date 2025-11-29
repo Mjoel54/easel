@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SubmitButton } from "../forms/index.js";
+import { SubmitButton } from "../../components/index.js";
 import { NodeElementList } from "./index.js";
 import { type HtmlNode } from "./types/types.js";
 import { parseHtmlToNodes } from "./utils/parseHtmlToNodes.js";
@@ -9,9 +9,7 @@ interface HtmlEditorFormProps {
   onGenerate: (html: string) => void;
 }
 
-export const HtmlEditorForm: React.FC<HtmlEditorFormProps> = ({
-  onGenerate,
-}) => {
+export const EditorForm: React.FC<HtmlEditorFormProps> = ({ onGenerate }) => {
   const [htmlInput, setHtmlInput] = useState("");
   const [parsedNodes, setParsedNodes] = useState<HtmlNode[]>([]);
   const [editedTexts, setEditedTexts] = useState<{ [key: string]: string }>({});

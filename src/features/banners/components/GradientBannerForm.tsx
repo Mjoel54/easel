@@ -1,18 +1,14 @@
 import React, { useState } from "react";
-import {
-  ColorSelector,
-  TitleSelector,
-  CancelButton,
-  SubmitButton,
-} from "../forms/index.js";
-import { theme } from "../../utils/theme.js";
+import { ColorSelector, TitleSelector } from "./index.js";
+import { CancelButton, SubmitButton } from "../../../components/index.js";
+import { theme } from "../../../utils/theme.js";
 
 interface GradientBannerFormProps {
   onCancel: () => void;
   onGenerate: (html: string) => void;
 }
 
-export default function GradientBannerForm({
+export function GradientBannerForm({
   onCancel,
   onGenerate,
 }: GradientBannerFormProps) {

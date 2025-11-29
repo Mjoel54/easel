@@ -1,23 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { EditableNodeElement, NodeElement } from "../index.js";
-
-interface InnerHtmlNode {
-  id: string;
-  type: "element" | "text";
-  tagName?: string;
-  textContent: string;
-  children: InnerHtmlNode[];
-}
+import { collectInitialTexts } from "../utils/collectInitialTexts.js";
+import { type InnerHtmlNode } from "../types/types.js";
+import { generateStableId } from "../utils/generateStableId.js";
 
 interface AnchorTextElementProps {
   innerHTML: string;
   onChange: (innerHTML: string) => void;
   indent?: number;
-}
-
-// Stable ID generator based on structure, not counter
-function generateStableId(path: number[]): string {
-  return path.join("-");
 }
 
 function parseHTML(html: string): InnerHtmlNode[] {
@@ -30,6 +20,7 @@ function parseHTML(html: string): InnerHtmlNode[] {
       // Skip empty or whitespace-only text nodes
       if (!text.trim()) return null;
 
+      // Stable ID generator based on structure, not counter
       return {
         id: `text-${generateStableId(path)}`,
         type: "text",
@@ -74,20 +65,6 @@ function parseHTML(html: string): InnerHtmlNode[] {
   });
 
   return nodes;
-}
-
-function collectInitialTexts(nodes: InnerHtmlNode[]): Map<string, string> {
-  const texts = new Map<string, string>();
-
-  const collect = (node: InnerHtmlNode) => {
-    if (node.type === "text") {
-      texts.set(node.id, node.textContent);
-    }
-    node.children.forEach(collect);
-  };
-
-  nodes.forEach(collect);
-  return texts;
 }
 
 export function AnchorTextElement({
@@ -179,15 +156,3 @@ export function AnchorTextElement({
     </div>
   );
 }
-
-// const labelClassName =
-//   "text-md font-mono font-semibold text-blue-600 dark:text-blue-400";
-
-// const inputClassName =
-//   "w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
-
-// const rows =
-//   type === "textarea" ? Math.max(1, Math.ceil(value.length / 80)) : undefined;
-
-// return (
-//   <div className="hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"></div>

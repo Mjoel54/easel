@@ -10,7 +10,7 @@ interface ThicknessSelectorProps {
   helperText?: string;
 }
 
-export default function ThicknessSelector({
+export function ThicknessSelector({
   id,
   label,
   value,

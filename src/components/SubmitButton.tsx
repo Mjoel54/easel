@@ -3,7 +3,7 @@ interface SubmitButtonProps {
   children: React.ReactNode;
 }
 
-export default function SubmitButton({
+export function SubmitButton({
   disabled = false,
   children,
 }: SubmitButtonProps) {

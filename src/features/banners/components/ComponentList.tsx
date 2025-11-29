@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { HTMLOutputModal } from "./banners/HtmlOutputModal.js";
-import { BannerService } from "./banners/BannerService.js";
+import { HTMLOutputModal } from "./index.js";
+import { BannerService } from "../utils/BannerService.js";
 
 export default function ComponentList() {
   const [activeForm, setActiveForm] = useState<number | null>(null);

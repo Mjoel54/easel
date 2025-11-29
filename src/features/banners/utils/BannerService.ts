@@ -1,7 +1,9 @@
-import { SimpleBannerForm } from "./SimpleBannerForm.js";
-import GradientBannerForm from "./GradientBannerForm.js";
-import { BorderBannerForm } from "./BorderBannerForm.js";
-import { theme } from "../../utils/theme.js";
+import {
+  SimpleBannerForm,
+  GradientBannerForm,
+  BorderBannerForm,
+} from "../components/index.js";
+import { theme } from "../../../utils/theme.js";
 
 export class BannerService {
   static get Simple() {

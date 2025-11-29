@@ -7,3 +7,11 @@ export interface HtmlNode {
   children: HtmlNode[];
   originalNode: Node;
 }
+
+export interface InnerHtmlNode {
+  id: string;
+  type: "element" | "text";
+  tagName?: string;
+  textContent: string;
+  children: InnerHtmlNode[];
+}
