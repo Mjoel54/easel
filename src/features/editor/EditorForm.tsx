@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SubmitButton } from "../../components/index.js";
 import { NodeElementList } from "./index.js";
 import { type HtmlNode } from "./types/types.js";
-import { parseHtmlToNodes } from "./utils/parseHtmlToNodes.js";
+import { parseHtmlUnified } from "./utils/parseHtmlUnified.js";
 import { voidElements } from "./utils/voidElements.js";
 
 interface HtmlEditorFormProps {
@@ -17,7 +17,7 @@ export const EditorForm: React.FC<HtmlEditorFormProps> = ({ onGenerate }) => {
     [key: string]: { [attr: string]: string };
   }>({});
 
-  const nodes = parseHtmlToNodes(htmlInput);
+  const nodes = parseHtmlUnified(htmlInput, { idStrategy: "counter" });
 
   const handleParse = () => {
     setParsedNodes(nodes);
