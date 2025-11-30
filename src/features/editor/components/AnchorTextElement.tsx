@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { EditableNodeElement, NodeElement } from "../index.js";
 import { collectInitialTexts } from "../utils/collectInitialTexts.js";
-import { type InnerHtmlNode } from "../types/types.js";
-import { parseHTML } from "../utils/index.js";
+import { type HtmlNode } from "../types/types.js";
+import { parseHtmlUnified } from "../utils/parseHtmlUnified.js";
 
 interface AnchorTextElementProps {
   innerHTML: string;
@@ -16,7 +16,9 @@ export function AnchorTextElement({
   indent = 0,
 }: AnchorTextElementProps) {
   // Parse structure only once on mount
-  const [parsedNodes] = useState<InnerHtmlNode[]>(() => parseHTML(innerHTML));
+  const [parsedNodes] = useState<HtmlNode[]>(() =>
+    parseHtmlUnified(innerHTML, { idStrategy: "path" })
+  );
 
   // Track current text values separately from structure
   const [textValues, setTextValues] = useState<Map<string, string>>(() =>
@@ -28,7 +30,10 @@ export function AnchorTextElement({
   // Only re-sync when innerHTML changes from external source
   useEffect(() => {
     if (innerHTML !== lastGeneratedHTMLRef.current) {
-      const newTexts = collectInitialTexts(parseHTML(innerHTML));
+      // const newTexts = collectInitialTexts(parseHTML(innerHTML));
+      const newTexts = collectInitialTexts(
+        parseHtmlUnified(innerHTML, { idStrategy: "path" })
+      );
       setTextValues(newTexts);
       lastGeneratedHTMLRef.current = innerHTML;
     }
@@ -43,8 +48,9 @@ export function AnchorTextElement({
     });
 
     // Reconstruct HTML using current structure + new text value
-    const reconstructHTML = (node: InnerHtmlNode): string => {
-      if (node.type === "text") {
+    const reconstructHTML = (node: HtmlNode): string => {
+      // if (node.type === "text") {
+      if (node.isTextNode) {
         // Use the new value if this is the node being updated
         return node.id === nodeId
           ? value
@@ -59,10 +65,11 @@ export function AnchorTextElement({
     onChange(newInnerHTML);
   };
 
-  const renderNode = (node: InnerHtmlNode, depth: number): React.ReactNode => {
+  const renderNode = (node: HtmlNode, depth: number): React.ReactNode => {
     const nodeIndent = indent + depth * 16;
 
-    if (node.type === "text") {
+    // if (node.type === "text") {
+    if (node.isTextNode) {
       return (
         <EditableNodeElement
           key={node.id}
