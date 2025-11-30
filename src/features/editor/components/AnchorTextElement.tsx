@@ -1,93 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { EditableNodeElement, NodeElement } from "../index.js";
-
-interface InnerHtmlNode {
-  id: string;
-  type: "element" | "text";
-  tagName?: string;
-  textContent: string;
-  children: InnerHtmlNode[];
-}
+import { collectInitialTexts } from "../utils/collectInitialTexts.js";
+import { type HtmlNode } from "../types/types.js";
+import { parseHtmlUnified } from "../utils/parseHtmlUnified.js";
 
 interface AnchorTextElementProps {
   innerHTML: string;
   onChange: (innerHTML: string) => void;
   indent?: number;
-}
-
-// Stable ID generator based on structure, not counter
-function generateStableId(path: number[]): string {
-  return path.join("-");
-}
-
-function parseHTML(html: string): InnerHtmlNode[] {
-  const tempDiv = document.createElement("div");
-  tempDiv.innerHTML = html;
-
-  const traverse = (node: Node, path: number[]): InnerHtmlNode | null => {
-    if (node.nodeType === Node.TEXT_NODE) {
-      const text = node.textContent || "";
-      // Skip empty or whitespace-only text nodes
-      if (!text.trim()) return null;
-
-      return {
-        id: `text-${generateStableId(path)}`,
-        type: "text",
-        textContent: text,
-        children: [],
-      };
-    }
-
-    if (node.nodeType === Node.ELEMENT_NODE) {
-      const element = node as Element;
-      const children: InnerHtmlNode[] = [];
-
-      let childIndex = 0;
-      Array.from(element.childNodes).forEach((child) => {
-        const childNode = traverse(child, [...path, childIndex]);
-        if (childNode) {
-          children.push(childNode);
-          childIndex++;
-        }
-      });
-
-      return {
-        id: `elem-${generateStableId(path)}`,
-        type: "element",
-        tagName: element.tagName.toLowerCase(),
-        textContent: "",
-        children,
-      };
-    }
-
-    return null;
-  };
-
-  const nodes: InnerHtmlNode[] = [];
-  let rootIndex = 0;
-  Array.from(tempDiv.childNodes).forEach((child) => {
-    const node = traverse(child, [rootIndex]);
-    if (node) {
-      nodes.push(node);
-      rootIndex++;
-    }
-  });
-
-  return nodes;
-}
-
-function collectInitialTexts(nodes: InnerHtmlNode[]): Map<string, string> {
-  const texts = new Map<string, string>();
-
-  const collect = (node: InnerHtmlNode) => {
-    if (node.type === "text") {
-      texts.set(node.id, node.textContent);
-    }
-    node.children.forEach(collect);
-  };
-
-  nodes.forEach(collect);
-  return texts;
 }
 
 export function AnchorTextElement({
@@ -96,7 +16,9 @@ export function AnchorTextElement({
   indent = 0,
 }: AnchorTextElementProps) {
   // Parse structure only once on mount
-  const [parsedNodes] = useState<InnerHtmlNode[]>(() => parseHTML(innerHTML));
+  const [parsedNodes] = useState<HtmlNode[]>(() =>
+    parseHtmlUnified(innerHTML, { idStrategy: "path" })
+  );
 
   // Track current text values separately from structure
   const [textValues, setTextValues] = useState<Map<string, string>>(() =>
@@ -108,7 +30,10 @@ export function AnchorTextElement({
   // Only re-sync when innerHTML changes from external source
   useEffect(() => {
     if (innerHTML !== lastGeneratedHTMLRef.current) {
-      const newTexts = collectInitialTexts(parseHTML(innerHTML));
+      // const newTexts = collectInitialTexts(parseHTML(innerHTML));
+      const newTexts = collectInitialTexts(
+        parseHtmlUnified(innerHTML, { idStrategy: "path" })
+      );
       setTextValues(newTexts);
       lastGeneratedHTMLRef.current = innerHTML;
     }
@@ -123,8 +48,9 @@ export function AnchorTextElement({
     });
 
     // Reconstruct HTML using current structure + new text value
-    const reconstructHTML = (node: InnerHtmlNode): string => {
-      if (node.type === "text") {
+    const reconstructHTML = (node: HtmlNode): string => {
+      // if (node.type === "text") {
+      if (node.isTextNode) {
         // Use the new value if this is the node being updated
         return node.id === nodeId
           ? value
@@ -139,10 +65,11 @@ export function AnchorTextElement({
     onChange(newInnerHTML);
   };
 
-  const renderNode = (node: InnerHtmlNode, depth: number): React.ReactNode => {
+  const renderNode = (node: HtmlNode, depth: number): React.ReactNode => {
     const nodeIndent = indent + depth * 16;
 
-    if (node.type === "text") {
+    // if (node.type === "text") {
+    if (node.isTextNode) {
       return (
         <EditableNodeElement
           key={node.id}
@@ -179,15 +106,3 @@ export function AnchorTextElement({
     </div>
   );
 }
-
-// const labelClassName =
-//   "text-md font-mono font-semibold text-blue-600 dark:text-blue-400";
-
-// const inputClassName =
-//   "w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
-
-// const rows =
-//   type === "textarea" ? Math.max(1, Math.ceil(value.length / 80)) : undefined;
-
-// return (
-//   <div className="hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"></div>

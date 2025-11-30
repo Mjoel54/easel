@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { PageHeader } from "../features/index.js";
-import { HtmlEditorForm } from "../features/editor/HtmlEditorForm.js";
-import { HTMLOutputModal } from "../features/banners/HtmlOutputModal.js";
+import { Header } from "../components/index.js";
+import { EditorForm } from "../features/editor/EditorForm.js";
+import { HTMLOutputModal } from "../features/banners/components/HtmlOutputModal.js";
 
-export default function Editor() {
+export function EditorPage() {
   const [generatedHtml, setGeneratedHtml] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -14,13 +14,13 @@ export default function Editor() {
 
   return (
     <>
-      <PageHeader
+      <Header
         title="HTML Editor"
         description="Fearlessly edit HTML text without accidentally breaking styling - paste in existing HTML, make changes with confidence, and copy it right back where it belongs, in your LMS."
       />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <HtmlEditorForm onGenerate={handleGenerate} />
+        <EditorForm onGenerate={handleGenerate} />
       </div>
 
       <HTMLOutputModal

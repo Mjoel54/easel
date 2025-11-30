@@ -10,7 +10,7 @@ interface ColorSelectorProps {
   helperText?: string;
 }
 
-export default function ColorSelector({
+export function ColorSelector({
   id,
   label,
   value,

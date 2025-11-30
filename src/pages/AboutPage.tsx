@@ -1,9 +1,9 @@
-import { PageHeader } from "../features/index.js";
+import { Header } from "../components/index.js";
 
-export default function About() {
+export function AboutPage() {
   return (
     <section className="max-w-4xl mx-auto my-8 px-4">
-      <PageHeader
+      <Header
         title="About"
         description="Your creative studio for crafting LMS ready UI components"
       />

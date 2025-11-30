@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { CopyButton } from "../forms/index.js";
+import { useState } from "react";
+import { CopyButton } from "../../../components/index.js";
 
 interface HTMLOutputModalProps {
   isOpen: boolean;
@@ -9,13 +9,13 @@ interface HTMLOutputModalProps {
   showPreview?: boolean;
 }
 
-export const HTMLOutputModal: React.FC<HTMLOutputModalProps> = ({
+export function HTMLOutputModal({
   isOpen,
   onClose,
   html,
   title = "Generated HTML",
   showPreview = true,
-}) => {
+}: HTMLOutputModalProps) {
   const [copied, setCopied] = useState(false);
 
   if (!isOpen) return null;
@@ -94,4 +94,4 @@ export const HTMLOutputModal: React.FC<HTMLOutputModalProps> = ({
       </div>
     </div>
   );
-};
+}
