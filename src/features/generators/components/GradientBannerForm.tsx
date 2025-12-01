@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ColorSelector, TitleSelector } from "./index.js";
 import { CancelButton, SubmitButton } from "../../../components/index.js";
 import { theme } from "../../../utils/theme.js";
-import { generateGradientBanner } from "../../banners/utils/generators.js";
+import { generateGradientBanner } from "../../generators/utils/generators.js";
 
 interface GradientBannerFormProps {
   onCancel: () => void;
