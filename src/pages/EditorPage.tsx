@@ -16,7 +16,7 @@ export function EditorPage() {
     <>
       <Header
         title="HTML Editor"
-        description="Fearlessly edit HTML text without accidentally breaking styling - paste in existing HTML, make changes with confidence, and copy it right back where it belongs, in your LMS."
+        description="Fearlessly edit the text in complex HTML without accidentally breaking styling. Paste in existing HTML, make changes with confidence, and copy it right back where it belongs, in your LMS."
       />
 
       <div className="max-w-7xl mx-auto px-4 py-8">

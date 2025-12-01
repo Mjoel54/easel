@@ -2,24 +2,24 @@ import React, { useState } from "react";
 import { ColorSelector, TitleSelector, RangeSelector } from "./index.js";
 import { CancelButton, SubmitButton } from "../../../components/index.js";
 import { theme } from "../../../utils/theme.js";
-import { generateBorderBanner } from "../utils/generators.js";
+import { generateSimpleSubheading } from "../utils/generators.js";
 
-interface BorderBannerFormProps {
+interface SimpleSubheadingFormProps {
   onCancel: () => void;
   onGenerate: (html: string) => void;
 }
 
-export function BorderBannerForm({
+export function SimpleSubheadingForm({
   onCancel,
   onGenerate,
-}: BorderBannerFormProps) {
+}: SimpleSubheadingFormProps) {
   const [text, setText] = useState("");
-  const [accentColor, setAccentColor] = useState(theme.primary);
-  const [thickness, setThickness] = useState(theme.thickness);
+  const [color, setColor] = useState(theme.primary);
+  const [width, setWidth] = useState(600);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const html = generateBorderBanner({ text, accentColor, thickness });
+    const html = generateSimpleSubheading({ text, color, width });
     onGenerate(html);
   };
 
@@ -32,34 +32,33 @@ export function BorderBannerForm({
           </p>
           <div
             dangerouslySetInnerHTML={{
-              __html: generateBorderBanner({ text, accentColor, thickness }),
+              __html: generateSimpleSubheading({ text, color, width }),
             }}
           />
         </div>
       )}
 
       <TitleSelector
-        id="banner-text"
-        label="Title"
+        id="subheading-text"
+        label="Subheading Text"
         value={text}
         onChange={setText}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <ColorSelector
           id="accent-color"
-          label="Accent Colour"
-          value={accentColor}
-          onChange={setAccentColor}
-          // helperText="Choose a brand colour for the left accent bar"
+          label="Colour"
+          value={color}
+          onChange={setColor}
         />
 
         <RangeSelector
-          id="thickness"
-          label="Accent Edge Thickness"
-          value={thickness}
-          onChange={setThickness}
-          min={3}
-          max={30}
+          id="underline-width"
+          label="Underline Width"
+          value={width}
+          onChange={setWidth}
+          min={400}
+          max={1600}
           helperText="true"
         />
       </div>

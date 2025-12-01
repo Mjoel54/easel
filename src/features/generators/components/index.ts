@@ -1,17 +1,19 @@
 import { ColorSelector } from "./ColorSelector.jsx";
 import { TitleSelector } from "./TitleSelector.jsx";
-import { ThicknessSelector } from "./ThicknessSelector.jsx";
+import { RangeSelector } from "./RangeSelector.js";
 import { HTMLOutputModal } from "./HtmlOutputModal.jsx";
 import { SimpleBannerForm } from "./SimpleBannerForm.js";
 import { GradientBannerForm } from "./GradientBannerForm.js";
 import { BorderBannerForm } from "./BorderBannerForm.js";
+import { SimpleSubheadingForm } from "./SimpleSubheadingForm.js";
 
 export {
   ColorSelector,
   TitleSelector,
-  ThicknessSelector,
+  RangeSelector,
   HTMLOutputModal,
   SimpleBannerForm,
   GradientBannerForm,
   BorderBannerForm,
+  SimpleSubheadingForm,
 };
