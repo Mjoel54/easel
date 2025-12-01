@@ -1,17 +1,30 @@
 import { useState } from "react";
 import { HTMLOutputModal } from "./index.js";
-import { BannerService } from "../utils/BannerService.js";
 
-export default function ComponentList() {
+interface ComponentType<T = unknown> {
+  id: number;
+  name: string;
+  FormComponent: React.ComponentType<{
+    onCancel: () => void;
+    onGenerate: (html: string) => void;
+  }>;
+  generate: (data: T) => string;
+  defaultData: T;
+}
+
+interface ComponentListProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  components: readonly ComponentType<any>[];
+  title?: string;
+}
+
+export default function ComponentList({
+  components,
+  title = "Your HTML",
+}: ComponentListProps) {
   const [activeForm, setActiveForm] = useState<number | null>(null);
   const [generatedHTML, setGeneratedHTML] = useState<string>("");
   const [showModal, setShowModal] = useState(false);
-
-  const components = [
-    BannerService.Simple,
-    BannerService.Gradient,
-    BannerService.Border,
-  ];
 
   const handleGenerate = (html: string) => {
     setGeneratedHTML(html);
@@ -23,7 +36,8 @@ export default function ComponentList() {
     <div>
       <div className="space-y-6">
         {components.map((component) => {
-          const FormComponent = component.formComponent;
+          const { FormComponent, generate, defaultData } = component;
+          const preview = generate(defaultData);
 
           return (
             <div
@@ -41,7 +55,7 @@ export default function ComponentList() {
                 <div className="dark:bg-gray-800 p-6 min-h-[150px] flex items-center justify-center">
                   <div
                     className="w-full"
-                    dangerouslySetInnerHTML={{ __html: component.preview }}
+                    dangerouslySetInnerHTML={{ __html: preview }}
                   />
                 </div>
               )}
@@ -68,7 +82,7 @@ export default function ComponentList() {
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         html={generatedHTML}
-        title="Your Banner HTML"
+        title={title}
       />
     </div>
   );

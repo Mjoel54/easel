@@ -1,6 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import { AboutPage, BannersPage, EditorPage } from "./pages/index.js";
+import {
+  AboutPage,
+  BannersPage,
+  EditorPage,
+  SubheadingsPage,
+} from "./pages/index.js";
 import { Footer, Layout } from "./components/index.js";
 
 function App() {
@@ -11,6 +16,7 @@ function App() {
           <Route path="/" element={<AboutPage />} />
           <Route path="/banners" element={<BannersPage />} />
           <Route path="/editor" element={<EditorPage />} />
+          <Route path="/subheadings" element={<SubheadingsPage />} />
         </Routes>
       </Layout>
       <Footer />

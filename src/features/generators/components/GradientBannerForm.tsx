@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ColorSelector, TitleSelector } from "./index.js";
 import { CancelButton, SubmitButton } from "../../../components/index.js";
 import { theme } from "../../../utils/theme.js";
+import { generateGradientBanner } from "../../generators/utils/generators.js";
 
 interface GradientBannerFormProps {
   onCancel: () => void;
@@ -19,32 +20,14 @@ export function GradientBannerForm({
   const [startColour, setstartColour] = useState(theme.primary);
   const [customEndColor, setCustomEndColor] = useState(theme.gradientEnd);
 
-  const adjustColor = (hex: string, percent: number): string => {
-    const num = parseInt(hex.replace("#", ""), 16);
-    const r = Math.max(0, Math.min(255, (num >> 16) + percent));
-    const g = Math.max(0, Math.min(255, ((num >> 8) & 0x00ff) + percent));
-    const b = Math.max(0, Math.min(255, (num & 0x0000ff) + percent));
-    return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, "0")}`;
-  };
-
-  const generateBannerHTML = (): string => {
-    let endColor: string;
-
-    if (gradientDirection === "custom") {
-      endColor = customEndColor;
-    } else {
-      const adjustment = gradientDirection === "darker" ? -30 : 30;
-      endColor = adjustColor(startColour, adjustment);
-    }
-
-    return `<div style="position: relative; background: linear-gradient(135deg, ${startColour} 0%, ${endColor} 100%); padding: 24px 32px; margin-bottom: 1rem; border-radius: 16px; overflow: hidden;">
-  <h2 style="position: relative; margin: 0; color: #ffffff; font-size: 28px;"><strong>${text}</strong></h2>
-</div>`;
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const html = generateBannerHTML();
+    const html = generateGradientBanner({
+      text,
+      gradientDirection,
+      startColour,
+      customEndColor,
+    });
     onGenerate(html);
   };
 
@@ -55,7 +38,16 @@ export function GradientBannerForm({
           <p className="text-sm font-medium text-gray-900 dark:text-white mb-2">
             Preview
           </p>
-          <div dangerouslySetInnerHTML={{ __html: generateBannerHTML() }} />
+          <div
+            dangerouslySetInnerHTML={{
+              __html: generateGradientBanner({
+                text,
+                gradientDirection,
+                startColour,
+                customEndColor,
+              }),
+            }}
+          />
         </div>
       )}
 

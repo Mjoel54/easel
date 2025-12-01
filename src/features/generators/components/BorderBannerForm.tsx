@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { ColorSelector, TitleSelector, ThicknessSelector } from "./index.js";
+import { ColorSelector, TitleSelector, RangeSelector } from "./index.js";
 import { CancelButton, SubmitButton } from "../../../components/index.js";
 import { theme } from "../../../utils/theme.js";
+import { generateBorderBanner } from "../utils/generators.js";
 
-interface BorderBannerBannerFormProps {
+interface BorderBannerFormProps {
   onCancel: () => void;
   onGenerate: (html: string) => void;
 }
@@ -11,20 +12,14 @@ interface BorderBannerBannerFormProps {
 export function BorderBannerForm({
   onCancel,
   onGenerate,
-}: BorderBannerBannerFormProps) {
+}: BorderBannerFormProps) {
   const [text, setText] = useState("");
   const [accentColor, setAccentColor] = useState(theme.primary);
   const [thickness, setThickness] = useState(theme.thickness);
 
-  const generateBannerHTML = (): string => {
-    return `<div style="background: #f5f7fa; padding: 24px 32px; margin-bottom: 1rem; border-radius: 8px; border-left: ${thickness}px solid ${accentColor};">
-  <h2 style="margin: 0; color: #1e293b; font-size: 26px;"><strong>${text}</strong></h2>
-</div>`;
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const html = generateBannerHTML();
+    const html = generateBorderBanner({ text, accentColor, thickness });
     onGenerate(html);
   };
 
@@ -35,7 +30,11 @@ export function BorderBannerForm({
           <p className="text-sm font-medium text-gray-900 dark:text-white mb-2">
             Preview
           </p>
-          <div dangerouslySetInnerHTML={{ __html: generateBannerHTML() }} />
+          <div
+            dangerouslySetInnerHTML={{
+              __html: generateBorderBanner({ text, accentColor, thickness }),
+            }}
+          />
         </div>
       )}
 
@@ -54,7 +53,7 @@ export function BorderBannerForm({
           // helperText="Choose a brand colour for the left accent bar"
         />
 
-        <ThicknessSelector
+        <RangeSelector
           id="thickness"
           label="Accent Edge Thickness"
           value={thickness}
