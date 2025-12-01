@@ -1,6 +1,6 @@
 import { Header } from "../components/index.js";
-import ComponentList from "../features/banners/components/ComponentList.js";
-import { BANNER_TYPES } from "../features/banners/bannerConfig.js";
+import ComponentList from "../features/generators/components/ComponentList.js";
+import { BANNER_TYPES } from "../features/generators/bannerConfig.js";
 
 export function BannersPage() {
   return (

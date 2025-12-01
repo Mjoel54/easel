@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Header } from "../components/index.js";
 import { EditorForm } from "../features/editor/EditorForm.js";
-import { HTMLOutputModal } from "../features/banners/components/HtmlOutputModal.js";
+import { HTMLOutputModal } from "../features/generators/components/HtmlOutputModal.js";
 
 export function EditorPage() {
   const [generatedHtml, setGeneratedHtml] = useState("");
