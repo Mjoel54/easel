@@ -20,6 +20,7 @@ import { Link, useLocation } from "react-router-dom";
 const navigation = [
   { name: "About", href: "/", current: true },
   { name: "Banners", href: "/banners", current: false },
+  { name: "Subheadings", href: "/subheadings", current: false },
   { name: "HTML Editor", href: "/editor", current: false },
 ];
 // const userNavigation = [
@@ -129,7 +130,7 @@ export function Layout({ children }: LayoutProps) {
                   </div>
                   <div className="-mr-2 flex md:hidden">
                     {/* Mobile menu button */}
-                    <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-fuchsia-500">
+                    <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-cyan-400">
                       <span className="absolute -inset-0.5" />
                       <span className="sr-only">Open main menu</span>
                       <Bars3Icon

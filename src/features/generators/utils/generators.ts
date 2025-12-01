@@ -63,3 +63,19 @@ export const generateBorderBanner = ({
   <h2 style="margin: 0; color: #1e293b; font-size: 26px;"><strong>${text}</strong></h2>
 </div>`;
 };
+
+// Simple Subheading Generator
+export interface SimpleSubheadingData {
+  text: string;
+  color: string;
+  width: number;
+}
+
+export const generateSimpleSubheading = ({
+  text,
+  color,
+  width,
+}: SimpleSubheadingData): string => {
+  return `<h3 style="color: ${color}; font-size: 26px; margin: 20px 0 10px 0;"><strong>${text}</strong></h3>
+<hr style="width: ${width}px; max-width: 100%; border: 0; border-top: 3px solid ${color}; margin: 10px 0;" />`;
+};

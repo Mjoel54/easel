@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-interface ThicknessSelectorProps {
+interface RangeSelectorProps {
   id: string;
   label: string;
   value: number;
@@ -10,14 +10,14 @@ interface ThicknessSelectorProps {
   helperText?: string;
 }
 
-export function ThicknessSelector({
+export function RangeSelector({
   id,
   label,
   value,
   onChange,
   min = 3,
   max = 30,
-}: ThicknessSelectorProps) {
+}: RangeSelectorProps) {
   const percentage = ((value - min) / (max - min)) * 100;
 
   return (
