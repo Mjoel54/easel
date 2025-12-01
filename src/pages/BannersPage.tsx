@@ -1,12 +1,12 @@
 import { Header } from "../components/index.js";
 import ComponentList from "../features/generators/components/ComponentList.js";
-import { BANNER_TYPES } from "../features/generators/bannerConfig.js";
+import { bannerData } from "../features/generators/bannerData.js";
 
 export function BannersPage() {
   return (
     <>
       <Header title="Banner Components" />
-      <ComponentList components={BANNER_TYPES} title="Your Banner HTML" />
+      <ComponentList components={bannerData} title="Your Banner HTML" />
     </>
   );
 }

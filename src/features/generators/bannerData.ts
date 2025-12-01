@@ -14,7 +14,7 @@ import {
 } from "./utils/generators.js";
 import { theme } from "../../utils/theme.js";
 
-export const BANNER_TYPES = [
+export const bannerData = [
   {
     id: 1,
     name: "Simple",
