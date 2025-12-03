@@ -1,6 +1,7 @@
 import { ColorSelector } from "./ColorSelector.jsx";
 import { TitleSelector } from "./TitleSelector.jsx";
 import { RangeSelector } from "./RangeSelector.js";
+import { ValueSelector } from "./ValueSelector.js";
 import { HTMLOutputModal } from "./HtmlOutputModal.jsx";
 import { SimpleBannerForm } from "./SimpleBannerForm.js";
 import { GradientBannerForm } from "./GradientBannerForm.js";
@@ -12,6 +13,7 @@ export {
   ColorSelector,
   TitleSelector,
   RangeSelector,
+  ValueSelector,
   HTMLOutputModal,
   SimpleBannerForm,
   GradientBannerForm,

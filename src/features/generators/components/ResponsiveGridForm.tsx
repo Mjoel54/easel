@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ColorSelector } from "./index.js";
+import { ColorSelector, ValueSelector } from "./index.js";
 import { CancelButton, SubmitButton } from "../../../components/index.js";
 import { theme } from "../../../utils/theme.js";
 import { generateResponsiveGrid } from "../utils/generators.js";
@@ -24,30 +24,23 @@ export function ResponsiveGridForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <label
-          htmlFor="number-of-cards"
-          className="block text-sm font-medium text-gray-900 dark:text-white mb-2"
-        >
-          Number of Cards
-        </label>
-        <input
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <ValueSelector
           id="number-of-cards"
-          type="number"
+          label="Number of Cards"
+          value={numberOfCards}
+          onChange={setNumberOfCards}
           min={1}
           max={12}
-          value={numberOfCards}
-          onChange={(e) => setNumberOfCards(Number(e.target.value))}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400"
+        />
+
+        <ColorSelector
+          id="bg-color"
+          label="Background Colour"
+          value={backgroundColor}
+          onChange={setBackgroundColor}
         />
       </div>
-
-      <ColorSelector
-        id="bg-color"
-        label="Background Colour"
-        value={backgroundColor}
-        onChange={setBackgroundColor}
-      />
 
       <div>
         <p className="text-sm font-medium text-gray-900 dark:text-white mb-2">
