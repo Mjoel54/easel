@@ -1,20 +1,19 @@
 import { SimpleSubheadingForm } from "./components/index.js";
 import {
-  generateSimpleSubheading,
-  type SimpleSubheadingData,
+  generateResponsiveGrid,
+  type ResponsiveGridData,
 } from "./utils/generators.js";
 import { theme } from "../../utils/theme.js";
 
 export const layoutData = [
   {
     id: 1,
-    name: "Underline",
+    name: "Responsive Grid",
     FormComponent: SimpleSubheadingForm,
-    generate: generateSimpleSubheading,
+    generate: generateResponsiveGrid,
     defaultData: {
-      text: "Heading",
-      color: theme.primary,
-      width: 600,
-    } as SimpleSubheadingData,
+      numberOfCards: 2,
+      backgroundColor: theme.gray,
+    } as ResponsiveGridData,
   },
 ] as const;
