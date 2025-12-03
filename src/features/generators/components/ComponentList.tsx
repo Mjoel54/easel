@@ -60,7 +60,7 @@ export default function ComponentList({
                 </div>
               )}
 
-              <div className="bg-gray-50 p-4 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
+              <div className="bg-gray-50 dark:bg-gray-800 p-4 border-t border-gray-200 dark:border-gray-700 rounded-b-lg flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                   {component.name}
                 </h3>
