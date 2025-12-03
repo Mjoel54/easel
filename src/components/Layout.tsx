@@ -21,6 +21,7 @@ const navigation = [
   { name: "About", href: "/", current: true },
   { name: "Banners", href: "/banners", current: false },
   { name: "Subheadings", href: "/subheadings", current: false },
+  { name: "Layouts", href: "/layouts", current: false },
   { name: "HTML Editor", href: "/editor", current: false },
 ];
 // const userNavigation = [
