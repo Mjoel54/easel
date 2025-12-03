@@ -5,6 +5,7 @@ import {
   BannersPage,
   EditorPage,
   SubheadingsPage,
+  LayoutsPage,
 } from "./pages/index.js";
 import { Footer, Layout } from "./components/index.js";
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/banners" element={<BannersPage />} />
           <Route path="/editor" element={<EditorPage />} />
           <Route path="/subheadings" element={<SubheadingsPage />} />
+          <Route path="/layouts" element={<LayoutsPage />} />
         </Routes>
       </Layout>
       <Footer />
