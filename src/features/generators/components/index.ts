@@ -6,6 +6,7 @@ import { SimpleBannerForm } from "./SimpleBannerForm.js";
 import { GradientBannerForm } from "./GradientBannerForm.js";
 import { BorderBannerForm } from "./BorderBannerForm.js";
 import { SimpleSubheadingForm } from "./SimpleSubheadingForm.js";
+import { ResponsiveGridForm } from "./ResponsiveGridForm.js";
 
 export {
   ColorSelector,
@@ -16,4 +17,5 @@ export {
   GradientBannerForm,
   BorderBannerForm,
   SimpleSubheadingForm,
+  ResponsiveGridForm,
 };

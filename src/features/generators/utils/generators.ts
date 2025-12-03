@@ -99,7 +99,9 @@ export const generateResponsiveGrid = ({
     (_, i) => `
   <div style="flex: 1 1 300px; padding: 10px; min-width: 0; display: flex;">
     <div style="background: ${backgroundColor}; padding: 20px; border: 1px solid #ddd; border-radius: 8px; width: 100%;">
-      <h3 style="margin: 0 0 10px 0; color: #333;">Card ${i + 1}</h3>
+      <h3 style="margin: 0 0 10px 0; color: #333;"><strong>Card ${
+        i + 1
+      }</strong></h3>
       <p style="margin: 0; line-height: 1.6;">Add your content here. This text can be edited using the HTML Editor.</p>
     </div>
   </div>`

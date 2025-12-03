@@ -1,4 +1,4 @@
-import { SimpleSubheadingForm } from "./components/index.js";
+import { ResponsiveGridForm } from "./components/index.js";
 import {
   generateResponsiveGrid,
   type ResponsiveGridData,
@@ -9,10 +9,10 @@ export const layoutData = [
   {
     id: 1,
     name: "Responsive Grid",
-    FormComponent: SimpleSubheadingForm,
+    FormComponent: ResponsiveGridForm,
     generate: generateResponsiveGrid,
     defaultData: {
-      numberOfCards: 2,
+      numberOfCards: 3,
       backgroundColor: theme.gray,
     } as ResponsiveGridData,
   },
