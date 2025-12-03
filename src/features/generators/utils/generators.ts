@@ -102,7 +102,7 @@ export const generateResponsiveGrid = ({
       <h3 style="margin: 0 0 10px 0; color: #333;"><strong>Card ${
         i + 1
       }</strong></h3>
-      <p style="margin: 0; line-height: 1.6;">Add your content here. This text can be edited using the HTML Editor.</p>
+      <p style="margin: 0; line-height: 1.6;">Card content. Use the HTML Editor to edit this text.</p>
     </div>
   </div>`
   ).join("");

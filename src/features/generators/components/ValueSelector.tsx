@@ -51,7 +51,7 @@ export function ValueSelector({
           type="button"
           onClick={handleDecrement}
           disabled={value <= min}
-          className="h-11 w-11 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold text-xl hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center"
+          className="h-11 w-11 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold text-xl hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center cursor-pointer"
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.1 }}
           aria-label="Decrease value"
@@ -73,7 +73,7 @@ export function ValueSelector({
           type="button"
           onClick={handleIncrement}
           disabled={value >= max}
-          className="h-11 w-11 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold text-xl hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center"
+          className="h-11 w-11 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold text-xl hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center cursor-pointer"
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.1 }}
           aria-label="Increase value"
