@@ -66,7 +66,7 @@ export function ValueSelector({
           max={max}
           value={value}
           onChange={handleInputChange}
-          className="flex-1 h-11 px-4 text-center border border-gray-300 hover:border-blue-300 dark:border-gray-600 dark:hover:border-blue-400 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400 transition-colors duration-200 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+          className="w-20 h-11 px-4 text-center border border-gray-300 hover:border-blue-300 dark:border-gray-600 dark:hover:border-blue-400 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400 transition-colors duration-200 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
         />
 
         <motion.button

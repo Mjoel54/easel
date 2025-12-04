@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ColorSelector, ValueSelector } from "./index.js";
 import { CancelButton, SubmitButton } from "../../../components/index.js";
-import { theme } from "../../../utils/theme.js";
+// import { theme } from "../../../utils/theme.js";
 import { generateResponsiveGrid } from "../utils/generators.js";
 
 interface ResponsiveGridFormProps {
@@ -14,7 +14,7 @@ export function ResponsiveGridForm({
   onGenerate,
 }: ResponsiveGridFormProps) {
   const [numberOfCards, setNumberOfCards] = useState(3);
-  const [backgroundColor, setBackgroundColor] = useState(theme.gray);
+  const [backgroundColor, setBackgroundColor] = useState("#edf7ff");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

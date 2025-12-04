@@ -3,7 +3,7 @@ import {
   generateResponsiveGrid,
   type ResponsiveGridData,
 } from "./utils/generators.js";
-import { theme } from "../../utils/theme.js";
+// import { theme } from "../../utils/theme.js";
 
 export const layoutData = [
   {
@@ -13,7 +13,7 @@ export const layoutData = [
     generate: generateResponsiveGrid,
     defaultData: {
       numberOfCards: 3,
-      backgroundColor: theme.gray,
+      backgroundColor: "#edf7ff",
     } as ResponsiveGridData,
   },
 ] as const;
