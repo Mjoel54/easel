@@ -22,12 +22,12 @@ export function EditableNodeElement({
     type === "textarea" ? Math.max(1, Math.ceil(value.length / 80)) : undefined;
 
   return (
-    <div className=" hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors pl-1">
+    <div className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors pl-1">
       <div
-        className="flex items-start gap-4 py-2 pr-4"
+        className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 py-2 pr-4"
         style={{ paddingLeft: `${indent}px` }}
       >
-        <div className="shrink-0 w-32 pt-2 ">
+        <div className="sm:shrink-0 sm:w-32 sm:pt-2">
           <span className={labelClassName}>{label}</span>
         </div>
         <div className="flex-1 min-w-0">
@@ -51,12 +51,3 @@ export function EditableNodeElement({
     </div>
   );
 }
-
-// <div
-//   className="py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
-//   style={{ paddingLeft: `${indent}px` }}
-// >
-//   <span className="text-sm font-mono text-gray-500 dark:text-gray-400">
-//     &lt;{nodeName}&gt;
-//   </span>
-// </div>
