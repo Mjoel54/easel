@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { ColorSelector, TitleSelector, UserSelector } from "./index.js";
+import {
+  ColorSelector,
+  TitleSelector,
+  UserSelector,
+  BoxShadowSelector,
+} from "./index.js";
 import { CancelButton, SubmitButton } from "../../../components/index.js";
 import { theme } from "../../../utils/theme.js";
 import {
@@ -22,6 +27,9 @@ export const SimpleBannerForm: React.FC<SimpleBannerFormProps> = ({
   const [text, setText] = useState("");
   const [classPrefix, setClassPrefix] = useState("");
   const [backgroundColor, setBackgroundColor] = useState(theme.primary);
+  const [boxShadow, setBoxShadow] = useState<
+    "none" | "option1" | "option2" | "option3"
+  >("none");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,6 +39,7 @@ export const SimpleBannerForm: React.FC<SimpleBannerFormProps> = ({
         text: "Your banner text here",
         classPrefix,
         backgroundColor,
+        boxShadow,
       });
       onGenerate(html, css);
     } else {
@@ -42,8 +51,8 @@ export const SimpleBannerForm: React.FC<SimpleBannerFormProps> = ({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <UserSelector
-        id="canvas-role"
-        label="Which Canvas role are you using?"
+        id="lms-role"
+        label="Which LMS role are you using?"
         value={userRole}
         onChange={setUserRole}
       />
@@ -54,10 +63,17 @@ export const SimpleBannerForm: React.FC<SimpleBannerFormProps> = ({
         </p>
         <div
           dangerouslySetInnerHTML={{
-            __html: generateSimpleBanner({
-              text: text || "Your banner text here",
-              backgroundColor,
-            }),
+            __html:
+              userRole === "administrator" && boxShadow !== "none"
+                ? `<style>.preview-banner { ${
+                    theme.boxShadows[boxShadow]
+                  } }</style><div class="preview-banner" style="background-color: ${backgroundColor}; padding: 10px 20px; margin-bottom: 1rem; border-radius: 0 15px 0 5px;"><h2 style="font-size: 26px; margin: 0.5rem 0; color: #ffffff;"><strong>${
+                    text || "Your banner text here"
+                  }</strong></h2></div>`
+                : generateSimpleBanner({
+                    text: text || "Your banner text here",
+                    backgroundColor,
+                  }),
           }}
         />
       </div>
@@ -94,6 +110,15 @@ export const SimpleBannerForm: React.FC<SimpleBannerFormProps> = ({
           onChange={setBackgroundColor}
         />
       </div>
+
+      {userRole === "administrator" && (
+        <BoxShadowSelector
+          id="box-shadow"
+          label="Box Shadow"
+          value={boxShadow}
+          onChange={setBoxShadow}
+        />
+      )}
 
       <div className="flex gap-3 pt-4">
         <CancelButton onClick={onCancel} />

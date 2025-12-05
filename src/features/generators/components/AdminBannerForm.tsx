@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ColorSelector, TitleSelector, RangeSelector } from "./index.js";
+import { ColorSelector, TitleSelector, RangeSelector, BoxShadowSelector } from "./index.js";
 import { CancelButton, SubmitButton } from "../../../components/index.js";
 import { theme } from "../../../utils/theme.js";
 import { generateAdminBanner } from "../utils/generators.js";
@@ -123,55 +123,12 @@ export function AdminBannerForm({
       </div>
 
       {/* Box Shadow Section */}
-      <div className="space-y-4">
-        <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Box Shadow</h3>
-        <div className="flex gap-4 flex-wrap">
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="radio"
-              name="boxShadow"
-              value="none"
-              checked={boxShadow === "none"}
-              onChange={(e) => setBoxShadow(e.target.value as "none" | "option1" | "option2" | "option3")}
-              className="w-4 h-4 text-blue-600"
-            />
-            <span className="text-sm text-gray-700 dark:text-gray-300">None</span>
-          </label>
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="radio"
-              name="boxShadow"
-              value="option1"
-              checked={boxShadow === "option1"}
-              onChange={(e) => setBoxShadow(e.target.value as "none" | "option1" | "option2" | "option3")}
-              className="w-4 h-4 text-blue-600"
-            />
-            <span className="text-sm text-gray-700 dark:text-gray-300">Subtle</span>
-          </label>
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="radio"
-              name="boxShadow"
-              value="option2"
-              checked={boxShadow === "option2"}
-              onChange={(e) => setBoxShadow(e.target.value as "none" | "option1" | "option2" | "option3")}
-              className="w-4 h-4 text-blue-600"
-            />
-            <span className="text-sm text-gray-700 dark:text-gray-300">Layered</span>
-          </label>
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="radio"
-              name="boxShadow"
-              value="option3"
-              checked={boxShadow === "option3"}
-              onChange={(e) => setBoxShadow(e.target.value as "none" | "option1" | "option2" | "option3")}
-              className="w-4 h-4 text-blue-600"
-            />
-            <span className="text-sm text-gray-700 dark:text-gray-300">Elevated</span>
-          </label>
-        </div>
-      </div>
+      <BoxShadowSelector
+        id="box-shadow"
+        label="Box Shadow"
+        value={boxShadow}
+        onChange={setBoxShadow}
+      />
 
       <div className="flex gap-3 pt-4">
         <CancelButton onClick={onCancel} />

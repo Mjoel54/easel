@@ -87,7 +87,11 @@ export function OutputModal({
                 <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
                   Preview
                 </label>
-                <div dangerouslySetInnerHTML={{ __html: html }} />
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: css ? `<style>${css}</style>${html}` : html,
+                  }}
+                />
               </div>
             )}
 

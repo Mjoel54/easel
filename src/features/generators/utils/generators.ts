@@ -1,3 +1,5 @@
+import { theme } from "../../../utils/theme.js";
+
 // ----- Banner Generators -----
 
 // Simple Banner Generator
@@ -18,18 +20,21 @@ export interface SimpleBannerClassData {
   text: string;
   classPrefix: string;
   backgroundColor: string;
+  boxShadow: "none" | "option1" | "option2" | "option3";
 }
 
 export const generateSimpleBannerClasses = ({
   text,
   classPrefix,
   backgroundColor,
+  boxShadow,
 }: SimpleBannerClassData): { css: string; html: string } => {
   const css = `.${classPrefix}-banner {
   background-color: ${backgroundColor};
   padding: 10px 20px;
   margin-bottom: 1rem;
   border-radius: 0 15px 0 5px;
+  ${theme.boxShadows[boxShadow]}
 }
 
 .${classPrefix}-banner h2 {
@@ -122,16 +127,6 @@ export const generateAdminBanner = ({
   const borderStyles =
     borderWidth > 0 ? `border: ${borderWidth}px solid ${borderColor};` : "";
 
-  const boxShadowMap = {
-    none: "",
-    option1:
-      "box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;",
-    option2:
-      "box-shadow: rgba(17, 17, 26, 0.1) 0px 5px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;",
-    option3:
-      "box-shadow: rgba(0, 0, 0, 0.25) 0px 15px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;",
-  };
-
   return `<style>
   .admin-banner {
     background-color: ${backgroundColor};
@@ -139,7 +134,7 @@ export const generateAdminBanner = ({
     margin-bottom: 1rem;
     border-radius: ${borderRadius}px;
     ${borderStyles}
-    ${boxShadowMap[boxShadow]}
+    ${theme.boxShadows[boxShadow]}
     text-align: left;
   }
 

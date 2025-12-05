@@ -3,6 +3,7 @@ import { TitleSelector } from "./TitleSelector.jsx";
 import { RangeSelector } from "./RangeSelector.js";
 import { ValueSelector } from "./ValueSelector.js";
 import { UserSelector } from "./UserSelector.js";
+import { BoxShadowSelector } from "./BoxShadowSelector.js";
 import { OutputModal } from "./OutputModal.js";
 import { SimpleBannerForm } from "./SimpleBannerForm.js";
 import { GradientBannerForm } from "./GradientBannerForm.js";
@@ -17,6 +18,7 @@ export {
   RangeSelector,
   ValueSelector,
   UserSelector,
+  BoxShadowSelector,
   OutputModal,
   SimpleBannerForm,
   GradientBannerForm,
