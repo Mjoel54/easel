@@ -5,22 +5,24 @@ import {
 import { motion } from "framer-motion";
 
 export function CopyButton({
-  html,
+  content,
   handleCopy,
   copied,
+  label = "HTML Code",
 }: {
-  html: string;
+  content: string;
   handleCopy: () => void;
   copied: boolean;
+  label?: string;
 }) {
   return (
     <div>
       <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
-        HTML Code
+        {label}
       </label>
       <div className="relative">
         <pre className="bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg p-4 overflow-x-auto text-sm text-gray-800 dark:text-gray-200">
-          <code>{html}</code>
+          <code>{content}</code>
         </pre>
         <motion.button
           onClick={handleCopy}
