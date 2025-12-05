@@ -5,6 +5,7 @@ interface HTMLOutputModalProps {
   isOpen: boolean;
   onClose: () => void;
   html: string;
+  css?: string;
   title?: string;
   showPreview?: boolean;
 }
@@ -13,10 +14,12 @@ export function HTMLOutputModal({
   isOpen,
   onClose,
   html,
+  css,
   title = "Generated HTML",
   showPreview = true,
 }: HTMLOutputModalProps) {
   const [copied, setCopied] = useState(false);
+  const [cssCopied, setCssCopied] = useState(false);
 
   if (!isOpen) return null;
 
@@ -25,6 +28,16 @@ export function HTMLOutputModal({
       await navigator.clipboard.writeText(html);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+
+  const handleCopyCss = async () => {
+    try {
+      await navigator.clipboard.writeText(css || "");
+      setCssCopied(true);
+      setTimeout(() => setCssCopied(false), 2000);
     } catch (err) {
       console.error("Failed to copy:", err);
     }
@@ -78,7 +91,17 @@ export function HTMLOutputModal({
               </div>
             )}
 
-            <CopyButton html={html} handleCopy={handleCopy} copied={copied} />
+            <CopyButton content={html} handleCopy={handleCopy} copied={copied} />
+
+            {/* CSS Code */}
+            {css && (
+              <CopyButton
+                content={css}
+                handleCopy={handleCopyCss}
+                copied={cssCopied}
+                label="CSS Code"
+              />
+            )}
           </div>
         </div>
 
