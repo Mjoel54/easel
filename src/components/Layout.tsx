@@ -217,14 +217,14 @@ export function Layout({ children }: LayoutProps) {
               <h1 className="text-3xl font-bold tracking-tight text-white">
                 Easel
               </h1>
-              {/* <a
+              <a
                 href="https://www.linkedin.com/in/mitchell-k-598591247/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-gray-300 hover:text-white transition-colors mt-1 inline-block"
               >
                 by Mitchell Klein
-              </a> */}
+              </a>
             </div>
           </header>
         </div>

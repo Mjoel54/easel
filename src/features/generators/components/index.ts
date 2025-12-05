@@ -6,6 +6,7 @@ import { HTMLOutputModal } from "./HtmlOutputModal.jsx";
 import { SimpleBannerForm } from "./SimpleBannerForm.js";
 import { GradientBannerForm } from "./GradientBannerForm.js";
 import { BorderBannerForm } from "./BorderBannerForm.js";
+import { AdminBannerForm } from "./AdminBannerForm.js";
 import { SimpleSubheadingForm } from "./SimpleSubheadingForm.js";
 import { ResponsiveGridForm } from "./ResponsiveGridForm.js";
 
@@ -18,6 +19,7 @@ export {
   SimpleBannerForm,
   GradientBannerForm,
   BorderBannerForm,
+  AdminBannerForm,
   SimpleSubheadingForm,
   ResponsiveGridForm,
 };

@@ -66,6 +66,62 @@ export const generateBorderBanner = ({
 </div>`;
 };
 
+// Admin Banner Generator
+export interface AdminBannerData {
+  text: string;
+  backgroundColor: string;
+  textColor: string;
+  borderWidth: number;
+  borderColor: string;
+  borderRadius: number;
+  boxShadow: "none" | "option1" | "option2" | "option3";
+}
+
+export const generateAdminBanner = ({
+  text,
+  backgroundColor,
+  textColor,
+  borderWidth,
+  borderColor,
+  borderRadius,
+  boxShadow,
+}: AdminBannerData): string => {
+  const borderStyles =
+    borderWidth > 0 ? `border: ${borderWidth}px solid ${borderColor};` : "";
+
+  const boxShadowMap = {
+    none: "",
+    option1:
+      "box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;",
+    option2:
+      "box-shadow: rgba(17, 17, 26, 0.1) 0px 5px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;",
+    option3:
+      "box-shadow: rgba(0, 0, 0, 0.25) 0px 15px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;",
+  };
+
+  return `<style>
+  .admin-banner {
+    background-color: ${backgroundColor};
+    padding: 24px 32px;
+    margin-bottom: 1rem;
+    border-radius: ${borderRadius}px;
+    ${borderStyles}
+    ${boxShadowMap[boxShadow]}
+    text-align: left;
+  }
+
+  .admin-banner h2 {
+    margin: 0;
+    color: ${textColor};
+    font-size: 26px;
+    font-weight: bold;
+  }
+</style>
+<div class="admin-banner">
+  <h2>${text}</h2>
+</div>`;
+};
+
 // ----- Subheading Generators -----
 
 // Simple Subheading Generator
