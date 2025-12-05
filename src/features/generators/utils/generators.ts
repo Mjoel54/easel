@@ -1,3 +1,5 @@
+import { theme } from "../../../utils/theme.js";
+
 // ----- Banner Generators -----
 
 // Simple Banner Generator
@@ -11,6 +13,42 @@ export const generateSimpleBanner = ({
   backgroundColor,
 }: SimpleBannerData): string => {
   return `<div style="background-color: ${backgroundColor}; padding: 10px 20px; margin-bottom: 1rem; border-radius: 0 15px 0 5px;"><h2 style="font-size: 26px; margin: 0.5rem 0; color: #ffffff;"><strong>${text}</strong></h2></div>`;
+};
+
+// Simple Banner Class-Based Generator (for administrators)
+export interface SimpleBannerClassData {
+  text: string;
+  classPrefix: string;
+  backgroundColor: string;
+  boxShadow: "none" | "option1" | "option2" | "option3";
+}
+
+export const generateSimpleBannerClasses = ({
+  text,
+  classPrefix,
+  backgroundColor,
+  boxShadow,
+}: SimpleBannerClassData): { css: string; html: string } => {
+  const css = `.${classPrefix}-banner {
+  background-color: ${backgroundColor};
+  padding: 10px 20px;
+  margin-bottom: 1rem;
+  border-radius: 0 15px 0 5px;
+  ${theme.boxShadows[boxShadow]}
+}
+
+.${classPrefix}-banner h2 {
+  font-size: 26px;
+  margin: 0.5rem 0;
+  color: #ffffff;
+  font-weight: bold;
+}`;
+
+  const html = `<div class="${classPrefix}-banner">
+  <h2>${text}</h2>
+</div>`;
+
+  return { css, html };
 };
 
 // Gradient Banner Generator
@@ -63,6 +101,52 @@ export const generateBorderBanner = ({
 }: BorderBannerData): string => {
   return `<div style="background: #f5f7fa; padding: 24px 32px; margin-bottom: 1rem; border-radius: 8px; border-left: ${thickness}px solid ${accentColor};">
   <h2 style="margin: 0; color: #1e293b; font-size: 26px;"><strong>${text}</strong></h2>
+</div>`;
+};
+
+// Admin Banner Generator
+export interface AdminBannerData {
+  text: string;
+  backgroundColor: string;
+  textColor: string;
+  borderWidth: number;
+  borderColor: string;
+  borderRadius: number;
+  boxShadow: "none" | "option1" | "option2" | "option3";
+}
+
+export const generateAdminBanner = ({
+  text,
+  backgroundColor,
+  textColor,
+  borderWidth,
+  borderColor,
+  borderRadius,
+  boxShadow,
+}: AdminBannerData): string => {
+  const borderStyles =
+    borderWidth > 0 ? `border: ${borderWidth}px solid ${borderColor};` : "";
+
+  return `<style>
+  .admin-banner {
+    background-color: ${backgroundColor};
+    padding: 24px 32px;
+    margin-bottom: 1rem;
+    border-radius: ${borderRadius}px;
+    ${borderStyles}
+    ${theme.boxShadows[boxShadow]}
+    text-align: left;
+  }
+
+  .admin-banner h2 {
+    margin: 0;
+    color: ${textColor};
+    font-size: 26px;
+    font-weight: bold;
+  }
+</style>
+<div class="admin-banner">
+  <h2>${text}</h2>
 </div>`;
 };
 

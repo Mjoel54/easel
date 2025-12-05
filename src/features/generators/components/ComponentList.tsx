@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { HTMLOutputModal } from "./index.js";
+import { OutputModal } from "./index.js";
 
 interface ComponentType<T = unknown> {
   id: number;
   name: string;
   FormComponent: React.ComponentType<{
     onCancel: () => void;
-    onGenerate: (html: string) => void;
+    onGenerate: (html: string, css?: string) => void;
   }>;
   generate: (data: T) => string;
   defaultData: T;
@@ -24,10 +24,12 @@ export default function ComponentList({
 }: ComponentListProps) {
   const [activeForm, setActiveForm] = useState<number | null>(null);
   const [generatedHTML, setGeneratedHTML] = useState<string>("");
+  const [generatedCSS, setGeneratedCSS] = useState<string | undefined>(undefined);
   const [showModal, setShowModal] = useState(false);
 
-  const handleGenerate = (html: string) => {
+  const handleGenerate = (html: string, css?: string) => {
     setGeneratedHTML(html);
+    setGeneratedCSS(css);
     setShowModal(true);
     setActiveForm(null);
   };
@@ -78,10 +80,11 @@ export default function ComponentList({
         })}
       </div>
 
-      <HTMLOutputModal
+      <OutputModal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         html={generatedHTML}
+        css={generatedCSS}
         title={title}
       />
     </div>
