@@ -13,6 +13,39 @@ export const generateSimpleBanner = ({
   return `<div style="background-color: ${backgroundColor}; padding: 10px 20px; margin-bottom: 1rem; border-radius: 0 15px 0 5px;"><h2 style="font-size: 26px; margin: 0.5rem 0; color: #ffffff;"><strong>${text}</strong></h2></div>`;
 };
 
+// Simple Banner Class-Based Generator (for administrators)
+export interface SimpleBannerClassData {
+  text: string;
+  classPrefix: string;
+  backgroundColor: string;
+}
+
+export const generateSimpleBannerClasses = ({
+  text,
+  classPrefix,
+  backgroundColor,
+}: SimpleBannerClassData): { css: string; html: string } => {
+  const css = `.${classPrefix}-banner {
+  background-color: ${backgroundColor};
+  padding: 10px 20px;
+  margin-bottom: 1rem;
+  border-radius: 0 15px 0 5px;
+}
+
+.${classPrefix}-banner h2 {
+  font-size: 26px;
+  margin: 0.5rem 0;
+  color: #ffffff;
+  font-weight: bold;
+}`;
+
+  const html = `<div class="${classPrefix}-banner">
+  <h2>${text}</h2>
+</div>`;
+
+  return { css, html };
+};
+
 // Gradient Banner Generator
 const adjustColor = (hex: string, percent: number): string => {
   const num = parseInt(hex.replace("#", ""), 16);
