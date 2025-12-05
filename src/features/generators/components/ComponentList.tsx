@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HTMLOutputModal } from "./index.js";
+import { OutputModal } from "./index.js";
 
 interface ComponentType<T = unknown> {
   id: number;
@@ -78,7 +78,7 @@ export default function ComponentList({
         })}
       </div>
 
-      <HTMLOutputModal
+      <OutputModal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         html={generatedHTML}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ColorSelector, TitleSelector } from "./index.js";
+import { ColorSelector, TitleSelector, UserSelector } from "./index.js";
 import { CancelButton, SubmitButton } from "../../../components/index.js";
 import { theme } from "../../../utils/theme.js";
 import { generateSimpleBanner } from "../utils/generators.js";
@@ -13,6 +13,7 @@ export const SimpleBannerForm: React.FC<SimpleBannerFormProps> = ({
   onCancel,
   onGenerate,
 }) => {
+  const [userRole, setUserRole] = useState<"teacher" | "administrator">("teacher");
   const [text, setText] = useState("");
   const [backgroundColor, setBackgroundColor] = useState(theme.primary);
 
@@ -24,6 +25,13 @@ export const SimpleBannerForm: React.FC<SimpleBannerFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <UserSelector
+        id="canvas-role"
+        label="Which Canvas role are you using?"
+        value={userRole}
+        onChange={setUserRole}
+      />
+
       {text && (
         <div>
           <p className="text-sm font-medium text-gray-900 dark:text-white mb-2">

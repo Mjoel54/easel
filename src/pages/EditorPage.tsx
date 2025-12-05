@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Header } from "../components/index.js";
 import { EditorForm } from "../features/editor/EditorForm.js";
-import { HTMLOutputModal } from "../features/generators/components/HtmlOutputModal.js";
+import { OutputModal } from "../features/generators/components/OutputModal.js";
 
 export function EditorPage() {
   const [generatedHtml, setGeneratedHtml] = useState("");
@@ -23,7 +23,7 @@ export function EditorPage() {
         <EditorForm onGenerate={handleGenerate} />
       </div>
 
-      <HTMLOutputModal
+      <OutputModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         html={generatedHtml}

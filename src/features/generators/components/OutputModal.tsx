@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CopyButton } from "../../../components/index.js";
 
-interface HTMLOutputModalProps {
+interface OutputModalProps {
   isOpen: boolean;
   onClose: () => void;
   html: string;
@@ -10,14 +10,14 @@ interface HTMLOutputModalProps {
   showPreview?: boolean;
 }
 
-export function HTMLOutputModal({
+export function OutputModal({
   isOpen,
   onClose,
   html,
   css,
   title = "Generated HTML",
   showPreview = true,
-}: HTMLOutputModalProps) {
+}: OutputModalProps) {
   const [copied, setCopied] = useState(false);
   const [cssCopied, setCssCopied] = useState(false);
 
@@ -91,7 +91,11 @@ export function HTMLOutputModal({
               </div>
             )}
 
-            <CopyButton content={html} handleCopy={handleCopy} copied={copied} />
+            <CopyButton
+              content={html}
+              handleCopy={handleCopy}
+              copied={copied}
+            />
 
             {/* CSS Code */}
             {css && (
