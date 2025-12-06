@@ -74,7 +74,7 @@ export function UserSelector({
               Administrator
             </span>
             <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-              Creates reusable CSS classes for your theme
+              Creates reusable CSS classes to import into your theme
             </p>
           </div>
         </label>
