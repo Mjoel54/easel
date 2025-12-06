@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ColorSelector, TitleSelector, RangeSelector } from "./index.js";
+import { ColorSelector, TextSelector, RangeSelector } from "./index.js";
 import { CancelButton, SubmitButton } from "../../../components/index.js";
 import { theme } from "../../../utils/theme.js";
 import { generateSimpleSubheading } from "../utils/generators.js";
@@ -38,7 +38,7 @@ export function SimpleSubheadingForm({
         </div>
       )}
 
-      <TitleSelector
+      <TextSelector
         id="subheading-text"
         label="Subheading Text"
         value={text}

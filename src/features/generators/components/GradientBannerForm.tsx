@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ColorSelector, TitleSelector } from "./index.js";
+import { ColorSelector, TextSelector } from "./index.js";
 import { CancelButton, SubmitButton } from "../../../components/index.js";
 import { theme } from "../../../utils/theme.js";
 import { generateGradientBanner } from "../../generators/utils/generators.js";
@@ -33,25 +33,23 @@ export function GradientBannerForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {text && (
-        <div>
-          <p className="text-sm font-medium text-gray-900 dark:text-white mb-2">
-            Preview
-          </p>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: generateGradientBanner({
-                text,
-                gradientDirection,
-                startColour,
-                customEndColor,
-              }),
-            }}
-          />
-        </div>
-      )}
+      <div>
+        <p className="text-sm font-medium text-gray-900 dark:text-white mb-2">
+          Preview
+        </p>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: generateGradientBanner({
+              text: text || "Your banner text here",
+              gradientDirection,
+              startColour,
+              customEndColor,
+            }),
+          }}
+        />
+      </div>
 
-      <TitleSelector
+      <TextSelector
         id="banner-text"
         label="Title"
         value={text}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   ColorSelector,
-  TitleSelector,
+  TextSelector,
   UserSelector,
   BoxShadowSelector,
 } from "./index.js";
@@ -80,7 +80,7 @@ export const SimpleBannerForm: React.FC<SimpleBannerFormProps> = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {userRole === "teacher" && (
-          <TitleSelector
+          <TextSelector
             id="banner-text"
             label="Banner Text"
             value={text}
@@ -90,7 +90,7 @@ export const SimpleBannerForm: React.FC<SimpleBannerFormProps> = ({
 
         {userRole === "administrator" && (
           <div>
-            <TitleSelector
+            <TextSelector
               id="class-prefix"
               label="Class Prefix"
               value={classPrefix}
@@ -98,7 +98,7 @@ export const SimpleBannerForm: React.FC<SimpleBannerFormProps> = ({
             />
             <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
               Choose a unique prefix to avoid class name collisions with your
-              LMS (e.g., "my-school" creates "my-school-banner")
+              LMS (e.g., "my-school" creates "my-school-simple-banner")
             </p>
           </div>
         )}
