@@ -87,6 +87,58 @@ export const generateGradientBanner = ({
 </div>`;
 };
 
+// Gradient Banner Class-Based Generator (for administrators)
+export interface GradientBannerClassData {
+  text: string;
+  classPrefix: string;
+  gradientDirection: "lighter" | "darker" | "custom";
+  startColour: string;
+  customEndColor: string;
+  boxShadow: "none" | "option1" | "option2" | "option3";
+}
+
+export const generateGradientBannerClasses = ({
+  text,
+  classPrefix,
+  gradientDirection,
+  startColour,
+  customEndColor,
+  boxShadow,
+}: GradientBannerClassData): { css: string; html: string } => {
+  let endColor: string;
+
+  if (gradientDirection === "custom") {
+    endColor = customEndColor;
+  } else {
+    const adjustment = gradientDirection === "darker" ? -30 : 30;
+    endColor = adjustColor(startColour, adjustment);
+  }
+
+  const css = `.${classPrefix}-gradient-banner {
+  position: relative;
+  background: linear-gradient(135deg, ${startColour} 0%, ${endColor} 100%);
+  padding: 24px 32px;
+  margin-bottom: 1rem;
+  border-radius: 16px;
+  overflow: hidden;
+  ${theme.boxShadows[boxShadow]}
+}
+
+.${classPrefix}-gradient-banner h2 {
+  position: relative;
+  margin: 0;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: bold;
+}`;
+
+  const html = `<div class="${classPrefix}-gradient-banner">
+  <h2>${text}</h2>
+</div>`;
+
+  return { css, html };
+};
+
 // Border Banner Generator
 export interface BorderBannerData {
   text: string;
