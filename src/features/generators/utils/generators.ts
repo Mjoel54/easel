@@ -29,7 +29,7 @@ export const generateSimpleBannerClasses = ({
   backgroundColor,
   boxShadow,
 }: SimpleBannerClassData): { css: string; html: string } => {
-  const css = `.${classPrefix}-banner {
+  const css = `.${classPrefix}-simple-banner {
   background-color: ${backgroundColor};
   padding: 10px 20px;
   margin-bottom: 1rem;
@@ -37,14 +37,14 @@ export const generateSimpleBannerClasses = ({
   ${theme.boxShadows[boxShadow]}
 }
 
-.${classPrefix}-banner h2 {
+.${classPrefix}-simple-banner h2 {
   font-size: 26px;
   margin: 0.5rem 0;
   color: #ffffff;
   font-weight: bold;
 }`;
 
-  const html = `<div class="${classPrefix}-banner">
+  const html = `<div class="${classPrefix}-simplebanner">
   <h2>${text}</h2>
 </div>`;
 
@@ -87,6 +87,58 @@ export const generateGradientBanner = ({
 </div>`;
 };
 
+// Gradient Banner Class-Based Generator (for administrators)
+export interface GradientBannerClassData {
+  text: string;
+  classPrefix: string;
+  gradientDirection: "lighter" | "darker" | "custom";
+  startColour: string;
+  customEndColor: string;
+  boxShadow: "none" | "option1" | "option2" | "option3";
+}
+
+export const generateGradientBannerClasses = ({
+  text,
+  classPrefix,
+  gradientDirection,
+  startColour,
+  customEndColor,
+  boxShadow,
+}: GradientBannerClassData): { css: string; html: string } => {
+  let endColor: string;
+
+  if (gradientDirection === "custom") {
+    endColor = customEndColor;
+  } else {
+    const adjustment = gradientDirection === "darker" ? -30 : 30;
+    endColor = adjustColor(startColour, adjustment);
+  }
+
+  const css = `.${classPrefix}-gradient-banner {
+  position: relative;
+  background: linear-gradient(135deg, ${startColour} 0%, ${endColor} 100%);
+  padding: 24px 32px;
+  margin-bottom: 1rem;
+  border-radius: 16px;
+  overflow: hidden;
+  ${theme.boxShadows[boxShadow]}
+}
+
+.${classPrefix}-gradient-banner h2 {
+  position: relative;
+  margin: 0;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: bold;
+}`;
+
+  const html = `<div class="${classPrefix}-gradient-banner">
+  <h2>${text}</h2>
+</div>`;
+
+  return { css, html };
+};
+
 // Border Banner Generator
 export interface BorderBannerData {
   text: string;
@@ -104,50 +156,43 @@ export const generateBorderBanner = ({
 </div>`;
 };
 
-// Admin Banner Generator
-export interface AdminBannerData {
+// Border Banner Class-Based Generator (for administrators)
+export interface BorderBannerClassData {
   text: string;
-  backgroundColor: string;
-  textColor: string;
-  borderWidth: number;
-  borderColor: string;
-  borderRadius: number;
+  classPrefix: string;
+  accentColor: string;
+  thickness: number;
   boxShadow: "none" | "option1" | "option2" | "option3";
 }
 
-export const generateAdminBanner = ({
+export const generateBorderBannerClasses = ({
   text,
-  backgroundColor,
-  textColor,
-  borderWidth,
-  borderColor,
-  borderRadius,
+  classPrefix,
+  accentColor,
+  thickness,
   boxShadow,
-}: AdminBannerData): string => {
-  const borderStyles =
-    borderWidth > 0 ? `border: ${borderWidth}px solid ${borderColor};` : "";
+}: BorderBannerClassData): { css: string; html: string } => {
+  const css = `.${classPrefix}-border-banner {
+  background: #f5f7fa;
+  padding: 24px 32px;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border-left: ${thickness}px solid ${accentColor};
+  ${theme.boxShadows[boxShadow]}
+}
 
-  return `<style>
-  .admin-banner {
-    background-color: ${backgroundColor};
-    padding: 24px 32px;
-    margin-bottom: 1rem;
-    border-radius: ${borderRadius}px;
-    ${borderStyles}
-    ${theme.boxShadows[boxShadow]}
-    text-align: left;
-  }
+.${classPrefix}-border-banner h2 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 26px;
+  font-weight: bold;
+}`;
 
-  .admin-banner h2 {
-    margin: 0;
-    color: ${textColor};
-    font-size: 26px;
-    font-weight: bold;
-  }
-</style>
-<div class="admin-banner">
+  const html = `<div class="${classPrefix}-border-banner">
   <h2>${text}</h2>
 </div>`;
+
+  return { css, html };
 };
 
 // ----- Subheading Generators -----

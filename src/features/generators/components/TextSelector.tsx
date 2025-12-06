@@ -7,7 +7,7 @@ interface TitleSelectorProps {
   placeholder?: string;
 }
 
-export function TitleSelector({
+export function TextSelector({
   id,
   label,
   value,
